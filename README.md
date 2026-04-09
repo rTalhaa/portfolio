@@ -2,6 +2,10 @@
 
 A static one-page portfolio for Talha Rashid with a futuristic animated landing page, an interactive D3 project constellation, project showcase cards, GitHub links, and LinkedIn integration.
 
+## Live site
+
+[https://rtalhaa.github.io/portfolio/](https://rtalhaa.github.io/portfolio/)
+
 ## Stack
 
 - HTML
@@ -27,7 +31,13 @@ Then open [http://localhost:4173](http://localhost:4173).
 3. Open the repository on GitHub and ensure Pages is enabled for GitHub Actions.
 4. Push any update to `main` and the included workflow will deploy the site.
 
-The published URL will usually be:
+The current published URL is:
+
+```text
+https://rtalhaa.github.io/portfolio/
+```
+
+For forks or renamed repositories, the published URL will usually be:
 
 ```text
 https://<github-username>.github.io/<repository-name>/
