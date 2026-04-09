@@ -1,12 +1,13 @@
 # Futuristic Portfolio
 
-A static one-page portfolio for Talha Rashid with a futuristic animated landing page, project showcase cards, GitHub links, and LinkedIn integration.
+A static one-page portfolio for Talha Rashid with a futuristic animated landing page, an interactive D3 project constellation, project showcase cards, GitHub links, and LinkedIn integration.
 
 ## Stack
 
 - HTML
 - CSS
 - Vanilla JavaScript
+- D3.js
 - GitHub Pages via GitHub Actions
 
 ## Local preview

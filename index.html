@@ -110,8 +110,8 @@
           <div class="section-title-row">
             <h2>Mission-ready builds with real depth.</h2>
             <p>
-              Filter the project grid by focus area. Each card carries a concise story, stack
-              snapshot, and a direct GitHub link.
+              Explore the project network through an interactive D3 signal map, then drop into the
+              cards for the story, stack snapshot, and direct GitHub link.
             </p>
           </div>
         </div>
@@ -121,6 +121,26 @@
           <button class="filter-chip" data-filter="data" type="button">Data Products</button>
           <button class="filter-chip" data-filter="ml" type="button">Machine Learning</button>
           <button class="filter-chip" data-filter="web" type="button">Web Experiences</button>
+        </div>
+
+        <div class="project-viz-shell" data-reveal>
+          <div class="project-viz-copy">
+            <span class="panel-label">D3 Signal Map</span>
+            <h3>Projects, capabilities, and code paths in one live constellation.</h3>
+            <p>
+              Hover or tap a node to spotlight a build. Project nodes connect to the capabilities
+              they represent, making the portfolio feel like a navigable system instead of a flat list.
+            </p>
+          </div>
+
+          <div class="project-viz-panel">
+            <svg id="project-map" class="project-map" aria-label="Interactive project visualization"></svg>
+            <article class="project-viz-detail" id="project-viz-detail" aria-live="polite">
+              <span class="panel-label">Focused node</span>
+              <h3>Signal map ready</h3>
+              <p>Select a project or capability node to inspect its connections.</p>
+            </article>
+          </div>
         </div>
 
         <div class="project-grid" id="project-grid"></div>
@@ -179,6 +199,7 @@
     </footer>
   </div>
 
+  <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
