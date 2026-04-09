@@ -93,20 +93,25 @@ function renderProjects(filter = "all") {
   projectGrid.innerHTML = filteredProjects
     .map(
       (project) => `
-        <article class="project-card" data-tilt data-reveal style="--project-glow: ${project.glow};">
-          <div class="project-top">
-            <span class="project-signal">${project.id}</span>
-            <span class="panel-label">${project.category.join(" / ")}</span>
+        <article class="project-card" data-reveal style="--project-glow: ${project.glow};">
+          <div class="project-card-header">
+            <div class="project-index">
+              <span class="project-signal">${project.id}</span>
+              <span class="project-category">${project.category.join(" / ")}</span>
+            </div>
+            <span class="project-link-hint">Repository</span>
           </div>
           <div class="project-copy">
             <h3>${project.title}</h3>
             <p>${project.summary}</p>
           </div>
-          <div class="project-tags">
-            ${project.tags.map((tag) => `<span class="project-tag">${tag}</span>`).join("")}
-          </div>
-          <div class="project-links">
-            <a href="${project.repo}" target="_blank" rel="noreferrer">Open repository</a>
+          <div class="project-footer">
+            <div class="project-tags">
+              ${project.tags.map((tag) => `<span class="project-tag">${tag}</span>`).join("")}
+            </div>
+            <div class="project-links">
+              <a href="${project.repo}" target="_blank" rel="noreferrer">Open repository</a>
+            </div>
           </div>
         </article>
       `
@@ -122,14 +127,11 @@ function renderOrbitNodes() {
 
   orbitNodes.innerHTML = orbitProjects
     .map((project, index) => {
-      const angle = `${index * 72}deg`;
-      const radius = index % 2 === 0 ? "13rem" : "10rem";
-      const delay = `${index * 0.8}s`;
-
       return `
-        <div class="orbit-node" style="--angle: ${angle}; --radius: ${radius}; --delay: ${delay};">
+        <div class="orbit-node" style="--project-glow: ${project.glow}; --node-delay: ${index * 0.06}s;">
+          <span class="orbit-node-id">${project.id}</span>
           <strong>${project.title}</strong>
-          <span>${project.tags.slice(0, 2).join(" + ")}</span>
+          <span>${project.tags.slice(0, 3).join(" / ")}</span>
         </div>
       `;
     })
@@ -144,8 +146,8 @@ function updateVizDetail(node) {
   if (!node) {
     projectVizDetail.innerHTML = `
       <span class="panel-label">Focused node</span>
-      <h3>Signal map ready</h3>
-      <p>Select a project or capability node to inspect its connections.</p>
+      <h3>Map ready</h3>
+      <p>Choose a project or shared skill to inspect its connections.</p>
     `;
     return;
   }
@@ -238,7 +240,7 @@ function renderProjectMap(filter = "all") {
     .attr("cx", () => Math.random() * width)
     .attr("cy", () => Math.random() * height)
     .attr("r", () => Math.random() * 1.8 + 0.6)
-    .attr("fill", "rgba(111,255,233,0.45)");
+    .attr("fill", "rgba(130,226,212,0.35)");
 
   const rootX = width / 2;
   const rootY = height / 2;
@@ -270,8 +272,8 @@ function renderProjectMap(filter = "all") {
 
   node.append("circle")
     .attr("r", (d) => d.radius)
-    .attr("fill", (d) => d.type === "project" ? "rgba(8, 17, 36, 0.92)" : "rgba(11, 31, 52, 0.8)")
-    .attr("stroke", (d) => d.type === "project" ? "#6fffe9" : "#bafc69")
+    .attr("fill", (d) => d.type === "project" ? "rgba(12, 28, 42, 0.92)" : "rgba(17, 36, 52, 0.86)")
+    .attr("stroke", (d) => d.type === "project" ? "#82e2d4" : "#ffbf8b")
     .attr("stroke-width", 1.5)
     .attr("filter", "url(#viz-glow)");
 
@@ -450,11 +452,21 @@ function revealObserver() {
       });
     },
     {
-      threshold: 0.18
+      threshold: 0.1
     }
   );
 
-  nodes.forEach((entry) => observer.observe(entry));
+  nodes.forEach((entry) => {
+    const rect = entry.getBoundingClientRect();
+    const isAlreadyInView = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+
+    if (isAlreadyInView) {
+      entry.classList.add("is-visible");
+      return;
+    }
+
+    observer.observe(entry);
+  });
 }
 
 function setupCanvas() {
@@ -470,7 +482,7 @@ function setupCanvas() {
 
   const context = canvas.getContext("2d");
   const particles = [];
-  const particleCount = 44;
+  const particleCount = 28;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -507,7 +519,7 @@ function setupCanvas() {
       }
 
       context.beginPath();
-      context.fillStyle = "rgba(111, 255, 233, 0.7)";
+      context.fillStyle = "rgba(130, 226, 212, 0.55)";
       context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
       context.fill();
 
@@ -519,7 +531,7 @@ function setupCanvas() {
 
         if (distance < 140) {
           context.beginPath();
-          context.strokeStyle = `rgba(111, 255, 233, ${0.12 - distance / 1400})`;
+          context.strokeStyle = `rgba(130, 226, 212, ${0.09 - distance / 1800})`;
           context.lineWidth = 1;
           context.moveTo(particle.x, particle.y);
           context.lineTo(other.x, other.y);
