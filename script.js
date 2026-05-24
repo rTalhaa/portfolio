@@ -127,8 +127,12 @@ const projects = [
 
 const projectGrid = document.querySelector("#project-grid");
 const featuredStrip = document.querySelector("#featured-strip");
+const projectShowcase = document.querySelector("#project-showcase");
 const filters = document.querySelectorAll(".filter");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let activeShowcaseIndex = 0;
+let currentShowcaseProjects = projects;
+let showcaseTimer = null;
 
 function projectCard(project) {
   return `
@@ -168,7 +172,10 @@ function renderProjects(filter = "all") {
     ? projects
     : projects.filter((project) => project.category.includes(filter));
 
+  currentShowcaseProjects = visibleProjects;
+  activeShowcaseIndex = 0;
   projectGrid.innerHTML = visibleProjects.map(projectCard).join("");
+  renderProjectShowcase();
   renderFeatured(filter);
   document.querySelector("#project-count").textContent = projects.length;
   revealItems();
@@ -191,6 +198,95 @@ function setupFilters() {
       renderProjects(filterButton.dataset.filter);
     });
   });
+}
+
+function renderProjectShowcase() {
+  if (!projectShowcase || !currentShowcaseProjects.length) {
+    return;
+  }
+
+  const activeProject = currentShowcaseProjects[activeShowcaseIndex % currentShowcaseProjects.length];
+  const orbitProjects = currentShowcaseProjects.slice(0, 8);
+  const angleStep = 360 / orbitProjects.length;
+
+  projectShowcase.style.setProperty("--accent", activeProject.accent);
+  projectShowcase.innerHTML = `
+    <div class="showcase-copy">
+      <span class="project-kicker">Animated project showcase</span>
+      <h3>${activeProject.title}</h3>
+      <p>${activeProject.summary}</p>
+      <div class="project-tags">
+        ${activeProject.tags.map((tag) => `<span>${tag}</span>`).join("")}
+      </div>
+      <div class="showcase-actions">
+        <a class="button primary" href="${activeProject.repo}" target="_blank" rel="noreferrer">Open selected repo</a>
+        <button class="button secondary" type="button" data-next-project>Next project</button>
+      </div>
+    </div>
+    <div class="orbit-stage" aria-label="Animated project selector">
+      <div class="orbit-core">
+        <span>${activeProject.icon}</span>
+        <strong>${activeProject.lane}</strong>
+      </div>
+      <div class="orbit-ring">
+        ${orbitProjects.map((project, index) => `
+          <button
+            class="orbit-project ${project.title === activeProject.title ? "is-active" : ""}"
+            type="button"
+            style="--angle: ${index * angleStep}deg; --node-accent: ${project.accent};"
+            data-showcase-index="${index}"
+            aria-label="Show ${project.title}"
+          >
+            <span>${project.icon}</span>
+          </button>
+        `).join("")}
+      </div>
+      <div class="orbit-trail" aria-hidden="true">
+        ${activeProject.tags.slice(0, 4).map((tag, index) => `<span style="--delay: ${index * 0.2}s">${tag}</span>`).join("")}
+      </div>
+    </div>
+  `;
+
+  projectShowcase.querySelectorAll("[data-showcase-index]").forEach((button) => {
+    button.addEventListener("click", () => {
+      activeShowcaseIndex = Number(button.dataset.showcaseIndex);
+      renderProjectShowcase();
+      restartShowcaseTimer();
+    });
+  });
+
+  projectShowcase.querySelector("[data-next-project]")?.addEventListener("click", () => {
+    advanceShowcase();
+    restartShowcaseTimer();
+  });
+}
+
+function advanceShowcase() {
+  if (!currentShowcaseProjects.length) {
+    return;
+  }
+
+  activeShowcaseIndex = (activeShowcaseIndex + 1) % Math.min(currentShowcaseProjects.length, 8);
+  renderProjectShowcase();
+}
+
+function restartShowcaseTimer() {
+  window.clearInterval(showcaseTimer);
+
+  if (prefersReducedMotion) {
+    return;
+  }
+
+  showcaseTimer = window.setInterval(advanceShowcase, 4200);
+}
+
+function setupShowcasePause() {
+  if (!projectShowcase || prefersReducedMotion) {
+    return;
+  }
+
+  projectShowcase.addEventListener("mouseenter", () => window.clearInterval(showcaseTimer));
+  projectShowcase.addEventListener("mouseleave", restartShowcaseTimer);
 }
 
 function revealItems() {
@@ -293,6 +389,8 @@ function setYear() {
 
 renderProjects();
 setupFilters();
+setupShowcasePause();
+restartShowcaseTimer();
 revealItems();
 setupCanvas();
 setYear();

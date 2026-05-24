@@ -28,6 +28,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 120px;
 }
 
 body {
@@ -171,6 +172,7 @@ main {
 
 .section-band {
   position: relative;
+  scroll-margin-top: 104px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(6, 17, 31, 0.7);
@@ -399,11 +401,201 @@ h2 {
 }
 
 .featured-strip,
+.project-showcase,
 .project-grid,
 .skill-lanes {
   display: grid;
   gap: 14px;
   margin-top: 24px;
+}
+
+.project-showcase {
+  grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1fr);
+  align-items: stretch;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent 44%),
+    linear-gradient(180deg, rgba(14, 30, 50, 0.92), rgba(7, 17, 31, 0.96));
+  overflow: hidden;
+}
+
+.showcase-copy {
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  padding: clamp(18px, 3vw, 30px);
+}
+
+.showcase-copy h3 {
+  margin-top: 18px;
+  font-size: clamp(1.6rem, 3vw, 2.45rem);
+  line-height: 1.08;
+}
+
+.showcase-copy p {
+  margin-top: 14px;
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.showcase-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 22px;
+}
+
+.showcase-actions .button {
+  min-height: 44px;
+}
+
+.orbit-stage {
+  position: relative;
+  min-height: 360px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at center, color-mix(in srgb, var(--accent) 18%, transparent), transparent 28%),
+    linear-gradient(180deg, rgba(5, 14, 27, 0.65), rgba(8, 19, 34, 0.86));
+  overflow: hidden;
+}
+
+.orbit-stage::before,
+.orbit-stage::after {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.orbit-stage::after {
+  inset: 24%;
+  border-style: dashed;
+  animation: orbit-spin 18s linear infinite;
+}
+
+.orbit-core {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  z-index: 2;
+  display: grid;
+  gap: 10px;
+  place-items: center;
+  width: 168px;
+  min-height: 132px;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 58%, var(--line));
+  border-radius: 8px;
+  background: rgba(7, 17, 31, 0.86);
+  box-shadow: 0 0 34px color-mix(in srgb, var(--accent) 24%, transparent);
+  transform: translate(-50%, -50%);
+}
+
+.orbit-core span {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 8px;
+  color: #07111f;
+  background: var(--accent);
+  font-family: var(--mono);
+  font-weight: 900;
+}
+
+.orbit-core strong {
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.orbit-ring {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  z-index: 3;
+  width: 1px;
+  height: 1px;
+  animation: orbit-drift 28s linear infinite;
+}
+
+.orbit-project {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border: 1px solid color-mix(in srgb, var(--node-accent) 60%, var(--line));
+  border-radius: 8px;
+  color: #07111f;
+  background: var(--node-accent);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+  cursor: pointer;
+  transform: rotate(var(--angle)) translate(132px) rotate(calc(-1 * var(--angle))) translate(-50%, -50%);
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+}
+
+.orbit-project span {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.orbit-project.is-active,
+.orbit-project:hover,
+.orbit-project:focus-visible {
+  filter: saturate(1.2) brightness(1.08);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08), 0 0 36px color-mix(in srgb, var(--node-accent) 40%, transparent);
+}
+
+.orbit-trail {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.orbit-trail span {
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.055);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  animation: trail-float 2.8s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-drift {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes trail-float {
+  50% {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--accent) 44%, var(--line));
+  }
 }
 
 .featured-strip {
@@ -591,6 +783,10 @@ h2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .project-showcase {
+    grid-template-columns: 1fr;
+  }
+
   .project-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -617,9 +813,30 @@ h2 {
   }
 
   .featured-strip,
+  .project-showcase,
   .project-grid,
   .skill-lanes {
     grid-template-columns: 1fr;
+  }
+
+  .showcase-copy {
+    min-height: auto;
+    padding: 12px 4px 20px;
+  }
+
+  .orbit-stage {
+    min-height: 330px;
+  }
+
+  .orbit-project {
+    width: 50px;
+    height: 50px;
+    transform: rotate(var(--angle)) translate(104px) rotate(calc(-1 * var(--angle))) translate(-50%, -50%);
+  }
+
+  .orbit-core {
+    width: 138px;
+    min-height: 116px;
   }
 
   .section-heading,
