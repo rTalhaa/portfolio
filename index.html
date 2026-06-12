@@ -1,212 +1,539 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Talha Rashid | Bold portfolio for AI, data, and web systems</title>
-  <meta
-    name="description"
-    content="Talha Rashid builds AI, data, and web systems with a bold portfolio that highlights recent projects, product thinking, and MLOps delivery."
-  >
-  <meta name="theme-color" content="#050816">
-  <link
-    rel="icon"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23050816'/%3E%3Cpath d='M12 14h40v8H36v28h-8V22H12z' fill='%23ff665c'/%3E%3Cpath d='M39 36h13v8H39z' fill='%239beb3f'/%3E%3C/svg%3E"
-  >
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talha Rashid — AI, Data & Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        accent: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        
+        /* Noise texture overlay */
+        .noise-bg::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: 50;
+        }
+        
+        /* Gradient mesh background */
+        .gradient-mesh {
+            background: 
+                radial-gradient(at 40% 20%, hsla(220,70%,60%,0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, hsla(250,60%,50%,0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(340,70%,60%,0.08) 0px, transparent 50%),
+                radial-gradient(at 80% 50%, hsla(220,70%,50%,0.08) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(250,60%,50%,0.1) 0px, transparent 50%),
+                radial-gradient(at 80% 100%, hsla(220,70%,60%,0.15) 0px, transparent 50%);
+        }
+        .dark .gradient-mesh {
+            background: 
+                radial-gradient(at 40% 20%, hsla(220,70%,40%,0.2) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, hsla(250,60%,30%,0.15) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(340,70%,40%,0.1) 0px, transparent 50%),
+                radial-gradient(at 80% 50%, hsla(220,70%,30%,0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(250,60%,30%,0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 100%, hsla(220,70%,40%,0.2) 0px, transparent 50%);
+        }
+
+        /* Project card hover */
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+        }
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+        
+        /* Stagger animation delays */
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        
+        /* Hide elements before scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Tech tag glow */
+        .tech-tag {
+            transition: all 0.3s ease;
+        }
+        .tech-tag:hover {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            transform: translateY(-1px);
+        }
+    </style>
 </head>
-<body>
-  <canvas id="system-canvas" aria-hidden="true"></canvas>
-  <div class="page-glow" aria-hidden="true"></div>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased noise-bg gradient-mesh min-h-screen">
 
-  <header class="topbar">
-    <a class="brand" href="#top" aria-label="Talha Rashid home">
-      <span class="brand-mark">TR</span>
-      <span class="brand-text">
-        <strong>Talha Rashid</strong>
-        <small>AI, data, web</small>
-      </span>
-    </a>
-
-    <nav class="nav-links" aria-label="Primary navigation">
-      <a href="#projects">Projects</a>
-      <a href="#story">Story</a>
-      <a href="#connect">Contact</a>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 backdrop-blur-xl bg-white/70 dark:bg-slate-950/70 border-b border-slate-200/50 dark:border-slate-800/50 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-tight hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
+                TR<span class="text-accent-500">.</span>
+            </a>
+            
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex gap-6 text-sm font-medium">
+                    <a href="#work" class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Work</a>
+                    <a href="#expertise" class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Expertise</a>
+                    <a href="#about" class="hover:text-accent-600 dark:hover:text-accent-400 transition-colors">About</a>
+                </div>
+                
+                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle theme">
+                    <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
     </nav>
 
-    <div class="topbar-actions">
-      <a href="https://github.com/rTalhaa" target="_blank" rel="noreferrer">GitHub</a>
-      <a href="https://www.linkedin.com/in/talha-rashid-a5966927b/" target="_blank" rel="noreferrer">LinkedIn</a>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero section-band">
-      <div class="hero-copy" data-reveal>
-        <p class="eyebrow">Bold portfolio / live projects / updated June 2026</p>
-        <h1>
-          Building polished products
-          <span>from models to interfaces.</span>
-        </h1>
-        <p class="hero-lead">
-          I design AI, data, and web systems that feel sharp, useful, and ready to ship.
-          The focus is simple: make technically strong work look as credible as it is.
-        </p>
-
-        <div class="hero-actions">
-          <a class="button primary" href="#projects">Explore projects</a>
-          <a class="button secondary" href="https://github.com/rTalhaa?tab=repositories" target="_blank" rel="noreferrer">Open GitHub</a>
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-50 dark:bg-accent-900/20 text-accent-600 dark:text-accent-400 text-sm font-medium border border-accent-100 dark:border-accent-800/30 animate-fade-in">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
+                        </span>
+                        Available for opportunities
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] animate-slide-up stagger-1">
+                        Building <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-600 to-violet-600 dark:from-accent-400 dark:to-violet-400">intelligent</span> systems from models to interfaces
+                    </h1>
+                    
+                    <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed animate-slide-up stagger-2">
+                        I design AI, data, and web systems that feel sharp, useful, and ready to ship. Focused on making technically strong work look as credible as it is.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4 animate-slide-up stagger-3">
+                        <a href="#work" class="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-medium hover:scale-105 transition-transform inline-flex items-center gap-2">
+                            View Projects
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </a>
+                        <a href="https://github.com/rTalhaa" target="_blank" class="px-8 py-4 border border-slate-300 dark:border-slate-700 rounded-full font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors inline-flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            GitHub
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center gap-6 text-sm text-slate-500 dark:text-slate-400 pt-4 animate-slide-up stagger-4">
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono text-accent-600 dark:text-accent-400 font-bold">12</span>
+                            <span>Public repos</span>
+                        </div>
+                        <div class="w-px h-4 bg-slate-300 dark:bg-slate-700"></div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono text-accent-600 dark:text-accent-400 font-bold">AI + MLOps</span>
+                            <span>Focus</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative hidden md:block">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-violet-500/20 rounded-3xl blur-3xl animate-float"></div>
+                    <div class="relative bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 rounded-3xl p-8 shadow-2xl">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-4">
+                                <div class="h-32 bg-gradient-to-br from-accent-100 to-accent-50 dark:from-accent-900/30 dark:to-accent-800/20 rounded-2xl flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="h-24 bg-gradient-to-br from-violet-100 to-violet-50 dark:from-violet-900/30 dark:to-violet-800/20 rounded-2xl flex items-center justify-center">
+                                    <svg class="w-10 h-10 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                                </div>
+                            </div>
+                            <div class="space-y-4 pt-8">
+                                <div class="h-24 bg-gradient-to-br from-emerald-100 to-emerald-50 dark:from-emerald-900/30 dark:to-emerald-800/20 rounded-2xl flex items-center justify-center">
+                                    <svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                </div>
+                                <div class="h-32 bg-gradient-to-br from-amber-100 to-amber-50 dark:from-amber-900/30 dark:to-amber-800/20 rounded-2xl flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 7m0 13V7"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </header>
 
-        <div class="hero-metrics" aria-label="Portfolio highlights">
-          <article>
-            <span>Live repos</span>
-            <strong id="project-count">0</strong>
-          </article>
-          <article>
-            <span>Recent focus</span>
-            <strong>AI + MLOps</strong>
-          </article>
-          <article>
-            <span>Output style</span>
-            <strong>Fast, visual, practical</strong>
-          </article>
-        </div>
-      </div>
+    <!-- Selected Work Section -->
+    <section id="work" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-16 reveal">
+                <h2 class="text-sm font-mono text-accent-600 dark:text-accent-400 mb-3 uppercase tracking-wider">Selected Work</h2>
+                <h3 class="text-3xl md:text-4xl font-bold tracking-tight">Projects that ship</h3>
+                <p class="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl">Recent public work across AI, data systems, and developer tools. Each project includes source code and live demos where applicable.</p>
+            </div>
 
-      <aside class="hero-panel" data-reveal aria-label="Portfolio summary">
-        <div class="hero-panel-top">
-          <span></span><span></span><span></span>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Project 1 -->
+                <article class="project-card group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl reveal">
+                    <div class="h-48 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-16 h-16 text-emerald-600/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 7m0 13V7"></path></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-full text-xs font-medium">Geospatial</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">Islamabad Land Price HeatMap</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Automated land price heatmap with spatial visualization and strong data-storytelling layer.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">Python</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">GeoPandas</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">Maps</span>
+                        </div>
+                        <a href="#https://github.com/rTalhaa/Islamabad-Land-Price-HeatMap" class="inline-flex items-center gap-2 text-sm font-medium text-accent-600 dark:text-accent-400 hover:gap-3 transition-all">
+                            View Project <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl reveal">
+                    <div class="h-48 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-16 h-16 text-blue-600/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-full text-xs font-medium">MLOps</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">Tox21 Molecular Toxicity</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">End-to-end MLOps workflow for molecular toxicity prediction with experiment tracking and deployment.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">PyTorch</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">MLflow</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">Docker</span>
+                        </div>
+                        <a href="#https://github.com/rTalhaa/Tox21-Molecular-Toxicity-MLOps-Platform" class="inline-flex items-center gap-2 text-sm font-medium text-accent-600 dark:text-accent-400 hover:gap-3 transition-all">
+                            View Project <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl reveal">
+                    <div class="h-48 bg-gradient-to-br from-violet-500/20 to-purple-500/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-16 h-16 text-violet-600/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-full text-xs font-medium">Browser Tool</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">Smart Right Click Extension</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Productivity browser extension with AI-assisted workflows, quicker actions, and cleaner UX.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">JavaScript</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">Chrome API</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">AI</span>
+                        </div>
+                        <a href="#https://github.com/rTalhaa/smart-right-click-browser-extension-v2" class="inline-flex items-center gap-2 text-sm font-medium text-accent-600 dark:text-accent-400 hover:gap-3 transition-all">
+                            View Project <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="project-card group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl reveal">
+                    <div class="h-48 bg-gradient-to-br from-amber-500/20 to-orange-500/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-16 h-16 text-amber-600/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-full text-xs font-medium">Full Stack</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">Auth App</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Production-ready authentication system demonstrating secure user flows and backend integration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">Python</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">Auth</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">Backend</span>
+                        </div>
+                        <a href="#https://github.com/rTalhaa/auth-app" class="inline-flex items-center gap-2 text-sm font-medium text-accent-600 dark:text-accent-400 hover:gap-3 transition-all">
+                            View Project <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 5 -->
+                <article class="project-card group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl reveal">
+                    <div class="h-48 bg-gradient-to-br from-rose-500/20 to-pink-500/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-16 h-16 text-rose-600/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-full text-xs font-medium">Pipeline</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">Automated MLOps Pipeline</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Airflow + MLflow pipeline for orchestration, experiment tracking, and repeatable ML delivery.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">Airflow</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">MLflow</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">Automation</span>
+                        </div>
+                        <a href="#https://github.com/rTalhaa/Automated-MLOps-Pipeline-using-Apache-Airflow-and-MLflow-for-Experiment-Tracking" class="inline-flex items-center gap-2 text-sm font-medium text-accent-600 dark:text-accent-400 hover:gap-3 transition-all">
+                            View Project <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project 6 -->
+                <article class="project-card group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl reveal">
+                    <div class="h-48 bg-gradient-to-br from-cyan-500/20 to-sky-500/20 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <svg class="w-16 h-16 text-cyan-600/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-full text-xs font-medium">LLM</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">FineTuning DeepSpeed vs LoRA</h4>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">Comparative study between full training and adapter-based fine-tuning for efficient LLM experimentation.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">LLM</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">DeepSpeed</span>
+                            <span class="tech-tag px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium">LoRA</span>
+                        </div>
+                        <a href="#https://github.com/rTalhaa/FineTuning-DeepSpeed-vs-LoRA-Adapters" class="inline-flex items-center gap-2 text-sm font-medium text-accent-600 dark:text-accent-400 hover:gap-3 transition-all">
+                            View Project <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="mt-12 text-center reveal">
+                <a href="https://github.com/rTalhaa?tab=repositories" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 border border-slate-300 dark:border-slate-700 rounded-full font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    View Full Archive
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
         </div>
-        <div class="hero-panel-body">
-          <div class="hero-code">
-            <pre><code>portfolio = {
-  "signal": "recent work first",
-  "style": "bold and readable",
-  "tracks": ["AI", "Data", "Web", "MLOps"]
-}</code></pre>
-          </div>
-          <div class="hero-stack">
-            <span>PyTorch</span>
-            <span>FastAPI</span>
-            <span>Airflow</span>
-            <span>MLflow</span>
-            <span>JavaScript</span>
-            <span>PostgreSQL</span>
-          </div>
-        </div>
-      </aside>
     </section>
 
-    <section class="story section-band" id="story">
-      <div class="section-heading" data-reveal>
-        <div>
-          <h2>Sharper presentation</h2>
-          <p>A cleaner, more editorial layout that puts the strongest work first and keeps the page easy to scan.</p>
+    <!-- Expertise Section -->
+    <section id="expertise" class="py-20 px-6 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border-y border-slate-200/50 dark:border-slate-800/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-16 reveal">
+                <h2 class="text-sm font-mono text-accent-600 dark:text-accent-400 mb-3 uppercase tracking-wider">Technical Lanes</h2>
+                <h3 class="text-3xl md:text-4xl font-bold tracking-tight">Where I operate</h3>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-accent-300 dark:hover:border-accent-700 transition-colors reveal">
+                    <div class="w-12 h-12 rounded-xl bg-accent-100 dark:bg-accent-900/30 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">AI / ML</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">RAG, classification, recommendation systems, vision experiments, and LLM workflows.</p>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">PyTorch</span>
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">Transformers</span>
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">OpenCV</span>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-accent-300 dark:hover:border-accent-700 transition-colors reveal">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">Data Products</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Trackers, heatmaps, explorers, scraping systems, and analytics-first interfaces.</p>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">Pandas</span>
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">Plotly</span>
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">Streamlit</span>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-accent-300 dark:hover:border-accent-700 transition-colors reveal">
+                    <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">MLOps / Delivery</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Airflow, MLflow, Docker, CI/CD, and reproducible workflows for real deployment.</p>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">FastAPI</span>
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">Docker</span>
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">GitHub Actions</span>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-accent-300 dark:hover:border-accent-700 transition-colors reveal">
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <h4 class="text-lg font-bold mb-2">Web Tools</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Browser extensions, auth flows, and frontend layouts that make work feel finished.</p>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">JavaScript</span>
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">TypeScript</span>
+                        <span class="text-xs px-2 py-1 bg-white dark:bg-slate-900 rounded-md border border-slate-200 dark:border-slate-700 font-mono">React</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="story-grid">
-        <article data-reveal>
-          <span>01</span>
-          <h3>Recent work surfaces first</h3>
-          <p>Projects are ordered around freshness and signal, not just volume.</p>
-        </article>
-        <article data-reveal>
-          <span>02</span>
-          <h3>Each project reads like a case study</h3>
-          <p>Clear labels, short summaries, and direct repo links make the work easy to review.</p>
-        </article>
-        <article data-reveal>
-          <span>03</span>
-          <h3>Visual identity is stronger</h3>
-          <p>Bolder type, richer gradients, and stronger contrast give the portfolio more presence.</p>
-        </article>
-      </div>
     </section>
 
-    <section class="project-atlas section-band" id="projects">
-      <div class="section-heading" data-reveal>
-        <div>
-          <h2>Selected work</h2>
-          <p>Updated with newer public repos and arranged to show the range across AI, data, automation, and product work.</p>
+    <!-- About / CTA Section -->
+    <section id="about" class="py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6">Ready to review, ready to share.</h2>
+            <p class="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto">
+                The latest public projects are visible up front, while the overall design stays direct enough for recruiters, collaborators, or clients to scan in seconds.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="mailto:talha.rashid344@gmail.com" class="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-medium hover:scale-105 transition-transform inline-flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Get in Touch
+                </a>
+                <a href="https://github.com/rTalhaa" target="_blank" class="px-8 py-4 border border-slate-300 dark:border-slate-700 rounded-full font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors inline-flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub Profile
+                </a>
+            </div>
         </div>
-        <a class="text-link" href="https://github.com/rTalhaa?tab=repositories" target="_blank" rel="noreferrer">See full archive</a>
-      </div>
-
-      <div class="filters" data-reveal role="toolbar" aria-label="Project filters">
-        <button class="filter is-active" type="button" data-filter="all">All</button>
-        <button class="filter" type="button" data-filter="ai">AI / ML</button>
-        <button class="filter" type="button" data-filter="data">Data</button>
-        <button class="filter" type="button" data-filter="web">Web</button>
-        <button class="filter" type="button" data-filter="ops">MLOps</button>
-      </div>
-
-      <div class="project-showcase" id="project-showcase" data-reveal aria-live="polite"></div>
-      <div class="featured-strip" data-reveal id="featured-strip"></div>
-      <div class="project-grid" id="project-grid"></div>
     </section>
 
-    <section class="skills section-band">
-      <div class="section-heading" data-reveal>
-        <div>
-          <h2>Technical lanes</h2>
-          <p>The work spans model building, data-heavy products, and delivery-focused systems.</p>
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-sm text-slate-500 dark:text-slate-400"> Talha Rashid. Built with precision.</p>
+            <div class="flex gap-6 text-sm">
+                <a href="https://github.com/rTalhaa" target="_blank" class="text-slate-500 dark:text-slate-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">GitHub</a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="text-slate-500 dark:text-slate-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">LinkedIn</a>
+                <a href="https://twitter.com/yourhandle" target="_blank" class="text-slate-500 dark:text-slate-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Twitter</a>
+            </div>
         </div>
-      </div>
+    </footer>
 
-      <div class="skill-lanes" data-reveal>
-        <article>
-          <h3>AI / ML</h3>
-          <p>RAG, classification, recommendation systems, vision experiments, and LLM workflows.</p>
-          <div><span>PyTorch</span><span>Transformers</span><span>FAISS</span><span>OpenCV</span></div>
-        </article>
-        <article>
-          <h3>Data Products</h3>
-          <p>Trackers, heatmaps, explorers, scraping systems, and analytics-first interfaces.</p>
-          <div><span>Pandas</span><span>Plotly</span><span>GeoPandas</span><span>Streamlit</span></div>
-        </article>
-        <article>
-          <h3>MLOps / Delivery</h3>
-          <p>Airflow, MLflow, Docker, CI/CD, and reproducible workflows for real deployment shape.</p>
-          <div><span>FastAPI</span><span>Docker</span><span>MLflow</span><span>Airflow</span></div>
-        </article>
-        <article>
-          <h3>Web Tools</h3>
-          <p>Browser extensions, auth flows, and frontend layouts that make the work feel finished.</p>
-          <div><span>JavaScript</span><span>HTML</span><span>CSS</span><span>TypeScript</span></div>
-        </article>
-      </div>
-    </section>
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
 
-    <section class="connect section-band" id="connect">
-      <div class="connect-copy" data-reveal>
-        <h2>Ready to review, ready to share.</h2>
-        <p>
-          The latest public projects are visible up front, while the overall design stays direct enough for recruiters,
-          collaborators, or clients to scan in seconds.
-        </p>
-      </div>
+        // Initialize theme
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
 
-      <div class="connect-actions" data-reveal>
-        <a class="button primary" href="https://github.com/rTalhaa" target="_blank" rel="noreferrer">GitHub profile</a>
-        <a class="button secondary" href="https://www.linkedin.com/in/talha-rashid-a5966927b/" target="_blank" rel="noreferrer">LinkedIn</a>
-        <a class="button secondary" href="https://rtalhaa.github.io/portfolio/" target="_blank" rel="noreferrer">Live site</a>
-      </div>
-    </section>
-  </main>
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-  <footer class="site-footer">
-    <p>Talha Rashid portfolio</p>
-    <p><span id="year"></span> · AI, data, and web systems</p>
-  </footer>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
 
-  <script src="script.js"></script>
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-sm');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
