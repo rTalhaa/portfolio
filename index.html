@@ -3,37 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Talha Rashid | Data, ML, and Web Systems</title>
+  <title>Talha Rashid | Bold portfolio for AI, data, and web systems</title>
   <meta
     name="description"
-    content="Talha Rashid's portfolio of data products, machine learning systems, MLOps platforms, browser tools, and web experiences."
+    content="Talha Rashid builds AI, data, and web systems with a bold portfolio that highlights recent projects, product thinking, and MLOps delivery."
   >
-  <meta name="theme-color" content="#07111f">
+  <meta name="theme-color" content="#050816">
   <link
     rel="icon"
-    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%2307111f'/%3E%3Cpath d='M12 14h40v8H36v28h-8V22H12z' fill='%23ff665c'/%3E%3Cpath d='M39 36h13v8H39z' fill='%239beb3f'/%3E%3C/svg%3E"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23050816'/%3E%3Cpath d='M12 14h40v8H36v28h-8V22H12z' fill='%23ff665c'/%3E%3Cpath d='M39 36h13v8H39z' fill='%239beb3f'/%3E%3C/svg%3E"
   >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <canvas id="system-canvas" aria-hidden="true"></canvas>
-  <div class="page-lines" aria-hidden="true"></div>
+  <div class="page-glow" aria-hidden="true"></div>
 
   <header class="topbar">
     <a class="brand" href="#top" aria-label="Talha Rashid home">
       <span class="brand-mark">TR</span>
-      <span class="brand-text">Talha Rashid</span>
+      <span class="brand-text">
+        <strong>Talha Rashid</strong>
+        <small>AI, data, web</small>
+      </span>
     </a>
 
     <nav class="nav-links" aria-label="Primary navigation">
       <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
+      <a href="#story">Story</a>
       <a href="#connect">Contact</a>
     </nav>
 
@@ -45,81 +48,103 @@
 
   <main id="top">
     <section class="hero section-band">
-      <div class="color-rail" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
-
       <div class="hero-copy" data-reveal>
-        <h1>Talha Rashid<span>Data, ML, and web systems</span></h1>
-        <p>
-          I build practical machine learning systems, data products, automation workflows,
-          and web tools that move from notebooks to usable interfaces.
+        <p class="eyebrow">Bold portfolio / live projects / updated June 2026</p>
+        <h1>
+          Building polished products
+          <span>from models to interfaces.</span>
+        </h1>
+        <p class="hero-lead">
+          I design AI, data, and web systems that feel sharp, useful, and ready to ship.
+          The focus is simple: make technically strong work look as credible as it is.
         </p>
 
         <div class="hero-actions">
-          <a class="button primary" href="#projects">View projects</a>
-          <a class="button secondary" href="https://github.com/rTalhaa?tab=repositories" target="_blank" rel="noreferrer">See GitHub</a>
+          <a class="button primary" href="#projects">Explore projects</a>
+          <a class="button secondary" href="https://github.com/rTalhaa?tab=repositories" target="_blank" rel="noreferrer">Open GitHub</a>
         </div>
 
-        <div class="hero-stack" aria-label="Core technologies">
-          <span>Python</span>
-          <span>PyTorch</span>
-          <span>FastAPI</span>
-          <span>Docker</span>
-          <span>JavaScript</span>
-          <span>PostgreSQL</span>
+        <div class="hero-metrics" aria-label="Portfolio highlights">
+          <article>
+            <span>Live repos</span>
+            <strong id="project-count">0</strong>
+          </article>
+          <article>
+            <span>Recent focus</span>
+            <strong>AI + MLOps</strong>
+          </article>
+          <article>
+            <span>Output style</span>
+            <strong>Fast, visual, practical</strong>
+          </article>
         </div>
       </div>
 
-      <aside class="terminal-panel" data-reveal aria-label="Portfolio summary">
-        <div class="terminal-top">
+      <aside class="hero-panel" data-reveal aria-label="Portfolio summary">
+        <div class="hero-panel-top">
           <span></span><span></span><span></span>
         </div>
-        <div class="terminal-body">
-          <pre><code>from fastapi import FastAPI
-from mlflow import log_metric
-from rag import retrieve_context
-
-app = FastAPI()
-
-@app.get("/projects")
-def featured_builds():
-    return {
-        "focus": ["RAG", "MLOps", "CV", "Data Apps"],
-        "status": "shipping"
-    }</code></pre>
-          <div class="system-metrics">
-            <article>
-              <span>Featured builds</span>
-              <strong id="project-count">12</strong>
-            </article>
-            <article>
-              <span>Domains</span>
-              <strong>AI + Data + Web</strong>
-            </article>
-            <article>
-              <span>Portfolio mode</span>
-              <strong>Open source</strong>
-            </article>
+        <div class="hero-panel-body">
+          <div class="hero-code">
+            <pre><code>portfolio = {
+  "signal": "recent work first",
+  "style": "bold and readable",
+  "tracks": ["AI", "Data", "Web", "MLOps"]
+}</code></pre>
+          </div>
+          <div class="hero-stack">
+            <span>PyTorch</span>
+            <span>FastAPI</span>
+            <span>Airflow</span>
+            <span>MLflow</span>
+            <span>JavaScript</span>
+            <span>PostgreSQL</span>
           </div>
         </div>
       </aside>
     </section>
 
+    <section class="story section-band" id="story">
+      <div class="section-heading" data-reveal>
+        <div>
+          <h2>Sharper presentation</h2>
+          <p>A cleaner, more editorial layout that puts the strongest work first and keeps the page easy to scan.</p>
+        </div>
+      </div>
+
+      <div class="story-grid">
+        <article data-reveal>
+          <span>01</span>
+          <h3>Recent work surfaces first</h3>
+          <p>Projects are ordered around freshness and signal, not just volume.</p>
+        </article>
+        <article data-reveal>
+          <span>02</span>
+          <h3>Each project reads like a case study</h3>
+          <p>Clear labels, short summaries, and direct repo links make the work easy to review.</p>
+        </article>
+        <article data-reveal>
+          <span>03</span>
+          <h3>Visual identity is stronger</h3>
+          <p>Bolder type, richer gradients, and stronger contrast give the portfolio more presence.</p>
+        </article>
+      </div>
+    </section>
+
     <section class="project-atlas section-band" id="projects">
       <div class="section-heading" data-reveal>
         <div>
-          <h2>Project atlas</h2>
-          <p>A cleaner view of recent and selected builds, aligned by what each project proves.</p>
+          <h2>Selected work</h2>
+          <p>Updated with newer public repos and arranged to show the range across AI, data, automation, and product work.</p>
         </div>
-        <a class="text-link" href="https://github.com/rTalhaa?tab=repositories" target="_blank" rel="noreferrer">Full GitHub archive</a>
+        <a class="text-link" href="https://github.com/rTalhaa?tab=repositories" target="_blank" rel="noreferrer">See full archive</a>
       </div>
 
       <div class="filters" data-reveal role="toolbar" aria-label="Project filters">
         <button class="filter is-active" type="button" data-filter="all">All</button>
         <button class="filter" type="button" data-filter="ai">AI / ML</button>
-        <button class="filter" type="button" data-filter="data">Data products</button>
-        <button class="filter" type="button" data-filter="web">Web tools</button>
+        <button class="filter" type="button" data-filter="data">Data</button>
+        <button class="filter" type="button" data-filter="web">Web</button>
         <button class="filter" type="button" data-filter="ops">MLOps</button>
       </div>
 
@@ -128,44 +153,44 @@ def featured_builds():
       <div class="project-grid" id="project-grid"></div>
     </section>
 
-    <section class="skills section-band" id="skills">
+    <section class="skills section-band">
       <div class="section-heading" data-reveal>
         <div>
           <h2>Technical lanes</h2>
-          <p>The site now presents the portfolio like a builder profile: model work, product work, and delivery work side by side.</p>
+          <p>The work spans model building, data-heavy products, and delivery-focused systems.</p>
         </div>
       </div>
 
       <div class="skill-lanes" data-reveal>
         <article>
           <h3>AI / ML</h3>
-          <p>RAG, fine-tuning, recommendation systems, computer vision, toxicity prediction, generative models.</p>
-          <div><span>PyTorch</span><span>Transformers</span><span>Scikit-learn</span><span>FAISS</span></div>
+          <p>RAG, classification, recommendation systems, vision experiments, and LLM workflows.</p>
+          <div><span>PyTorch</span><span>Transformers</span><span>FAISS</span><span>OpenCV</span></div>
         </article>
         <article>
           <h3>Data Products</h3>
-          <p>Dashboards, scraping pipelines, maps, market trackers, climate explorers, analytics workflows.</p>
+          <p>Trackers, heatmaps, explorers, scraping systems, and analytics-first interfaces.</p>
           <div><span>Pandas</span><span>Plotly</span><span>GeoPandas</span><span>Streamlit</span></div>
         </article>
         <article>
-          <h3>Systems / MLOps</h3>
-          <p>Experiment tracking, orchestration, deployment, CI/CD, containerized model and API workflows.</p>
+          <h3>MLOps / Delivery</h3>
+          <p>Airflow, MLflow, Docker, CI/CD, and reproducible workflows for real deployment shape.</p>
           <div><span>FastAPI</span><span>Docker</span><span>MLflow</span><span>Airflow</span></div>
         </article>
         <article>
           <h3>Web Tools</h3>
-          <p>Portfolio UI, browser extensions, auth apps, data-backed product interfaces, and practical frontend work.</p>
-          <div><span>JavaScript</span><span>TypeScript</span><span>HTML</span><span>CSS</span></div>
+          <p>Browser extensions, auth flows, and frontend layouts that make the work feel finished.</p>
+          <div><span>JavaScript</span><span>HTML</span><span>CSS</span><span>TypeScript</span></div>
         </article>
       </div>
     </section>
 
     <section class="connect section-band" id="connect">
       <div class="connect-copy" data-reveal>
-        <h2>Easy to review, easy to share.</h2>
+        <h2>Ready to review, ready to share.</h2>
         <p>
-          The portfolio now puts the newest public projects up front, keeps source links visible,
-          and gives recruiters or collaborators a fast path to the wider archive.
+          The latest public projects are visible up front, while the overall design stays direct enough for recruiters,
+          collaborators, or clients to scan in seconds.
         </p>
       </div>
 
@@ -179,7 +204,7 @@ def featured_builds():
 
   <footer class="site-footer">
     <p>Talha Rashid portfolio</p>
-    <p><span id="year"></span> · Data, ML, and web systems</p>
+    <p><span id="year"></span> · AI, data, and web systems</p>
   </footer>
 
   <script src="script.js"></script>

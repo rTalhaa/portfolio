@@ -1,127 +1,127 @@
 const projects = [
   {
-    title: "SkinSync RAG Chatbot",
-    category: ["ai", "web"],
-    lane: "RAG product",
-    summary: "AI skin analysis and skincare recommendation project built around retrieval, chat, and practical health-adjacent UX.",
-    tags: ["Python", "RAG", "FAISS", "FastAPI"],
-    repo: "https://github.com/rTalhaa/SkinSync-RAG-Chatbot",
-    accent: "#ff665c",
-    icon: "RAG",
+    title: "Islamabad Land Price HeatMap",
+    category: ["data", "web"],
+    lane: "Geospatial dashboard",
+    summary: "Automated Islamabad land price heatmap and spatial visualization project with a strong data-storytelling layer.",
+    tags: ["Python", "GeoPandas", "Maps", "Scraping"],
+    repo: "https://github.com/rTalhaa/Islamabad-Land-Price-HeatMap",
+    accent: "#ff6b5c",
+    icon: "MAP",
     featured: true
   },
   {
     title: "Tox21 Molecular Toxicity MLOps",
     category: ["ai", "ops"],
     lane: "MLOps platform",
-    summary: "A molecular toxicity modeling platform with deployment-oriented workflows for classification, tracking, and delivery.",
-    tags: ["PyTorch", "MLOps", "Docker", "MLflow"],
+    summary: "Model deployment project with a clear MLOps workflow for training, tracking, and production-minded delivery.",
+    tags: ["PyTorch", "MLflow", "Docker", "Automation"],
     repo: "https://github.com/rTalhaa/Tox21-Molecular-Toxicity-MLOps-Platform",
-    accent: "#22d3ee",
+    accent: "#24d7f0",
     icon: "TX",
     featured: true
-  },
-  {
-    title: "FineTuning DeepSpeed vs LoRA",
-    category: ["ai"],
-    lane: "LLM research",
-    summary: "Benchmark-style fine-tuning work comparing full-scale DeepSpeed workflows against lighter LoRA adapter methods.",
-    tags: ["LLM", "DeepSpeed", "LoRA", "Transformers"],
-    repo: "https://github.com/rTalhaa/FineTuning-DeepSpeed-vs-LoRA-Adapters",
-    accent: "#9beb3f",
-    icon: "LLM",
-    featured: true
-  },
-  {
-    title: "Islamabad Land Price HeatMap",
-    category: ["data", "web"],
-    lane: "Geospatial dashboard",
-    summary: "Automated Islamabad land price heatmap and spatial visualization project for property intelligence.",
-    tags: ["Python", "GeoPandas", "Maps", "Scraping"],
-    repo: "https://github.com/rTalhaa/Islamabad-Land-Price-HeatMap",
-    accent: "#ffb020",
-    icon: "MAP",
-    featured: true
-  },
-  {
-    title: "Swing Automated Trading",
-    category: ["data", "ops"],
-    lane: "Market automation",
-    summary: "Automated swing trading project for strategy experimentation, backtesting, and market signal workflows.",
-    tags: ["Python", "Backtesting", "Risk", "Automation"],
-    repo: "https://github.com/rTalhaa/SwingautomateddTrading",
-    accent: "#9a6cff",
-    icon: "TRD"
   },
   {
     title: "Smart Right Click Extension v2",
     category: ["web", "ai"],
     lane: "Browser tool",
-    summary: "Improved productivity browser extension for quick actions, capture flows, and AI-assisted summaries.",
+    summary: "Improved productivity browser extension with quicker actions, cleaner UX, and AI-assisted workflows.",
     tags: ["JavaScript", "Chrome API", "UX", "AI"],
     repo: "https://github.com/rTalhaa/smart-right-click-browser-extension-v2",
-    accent: "#2f8cff",
-    icon: "EXT"
+    accent: "#a7ef4b",
+    icon: "EXT",
+    featured: true
+  },
+  {
+    title: "Auth App",
+    category: ["web", "ops"],
+    lane: "Authentication app",
+    summary: "A practical auth-focused application that demonstrates product structure, user flow, and backend integration.",
+    tags: ["Python", "Auth", "App", "Delivery"],
+    repo: "https://github.com/rTalhaa/auth-app",
+    accent: "#ffbb3d",
+    icon: "AUTH",
+    featured: true
+  },
+  {
+    title: "Automated MLOps Pipeline",
+    category: ["ai", "ops"],
+    lane: "Pipeline automation",
+    summary: "Airflow plus MLflow pipeline for orchestration, experiment tracking, and repeatable machine learning delivery.",
+    tags: ["Airflow", "MLflow", "Automation", "MLops"],
+    repo: "https://github.com/rTalhaa/Automated-MLOps-Pipeline-using-Apache-Airflow-and-MLflow-for-Experiment-Tracking",
+    accent: "#9e7bff",
+    icon: "OPS"
+  },
+  {
+    title: "FineTuning DeepSpeed vs LoRA",
+    category: ["ai"],
+    lane: "LLM research",
+    summary: "Comparison work between full training paths and adapter-based fine-tuning for efficient LLM experimentation.",
+    tags: ["LLM", "DeepSpeed", "LoRA", "Transformers"],
+    repo: "https://github.com/rTalhaa/FineTuning-DeepSpeed-vs-LoRA-Adapters",
+    accent: "#45a0ff",
+    icon: "LLM"
+  },
+  {
+    title: "CI/CD for ML using GitHub Actions",
+    category: ["ops", "ai"],
+    lane: "Delivery workflow",
+    summary: "A clean CI/CD pattern for machine learning projects that keeps training and shipping more disciplined.",
+    tags: ["GitHub Actions", "CI/CD", "ML", "Automation"],
+    repo: "https://github.com/rTalhaa/CI-CD-for-ML-using-GitHub-Actions",
+    accent: "#ff6b5c",
+    icon: "CI"
   },
   {
     title: "Car Price Tracker PK",
     category: ["data", "web"],
     lane: "Market tracker",
-    summary: "Pakistan car price tracking project that combines listings, scraping, trends, and analytics-oriented presentation.",
+    summary: "Pakistan car price tracking project with scraping, normalization, and analysis-oriented presentation.",
     tags: ["TypeScript", "Scraping", "Analytics", "Cars"],
     repo: "https://github.com/rTalhaa/car-price-tracker-pk",
-    accent: "#ff665c",
+    accent: "#24d7f0",
     icon: "CAR"
   },
   {
     title: "Climate and AQI Explorer",
     category: ["data", "web"],
     lane: "Public data app",
-    summary: "Interactive city climate and air quality explorer built for comparison, visualization, and clean public data storytelling.",
+    summary: "Interactive city climate and air quality explorer built for comparison, visual exploration, and public data clarity.",
     tags: ["Python", "Streamlit", "Plotly", "API"],
     repo: "https://github.com/rTalhaa/city-climate-air-quality-explorer",
-    accent: "#22d3ee",
+    accent: "#a7ef4b",
     icon: "AQI"
-  },
-  {
-    title: "Spotify Recommendation System",
-    category: ["ai", "web"],
-    lane: "Recommendation UI",
-    summary: "Spotify-style clone with music recommendation functionality, blending interface practice with recommender systems.",
-    tags: ["Python", "JavaScript", "Recommender", "Music"],
-    repo: "https://github.com/rTalhaa/Spotify-Clone-and-Music-Recommendation-System",
-    accent: "#9beb3f",
-    icon: "SP"
   },
   {
     title: "Computer Vision Suite",
     category: ["ai"],
     lane: "Vision experiments",
-    summary: "Image classification, edge detection, segmentation, and classical vision experiments across model families.",
-    tags: ["OpenCV", "SVM", "HOG", "CNN"],
+    summary: "Image classification, edge detection, and classical computer vision experiments across multiple approaches.",
+    tags: ["OpenCV", "CNN", "HOG", "SVM"],
     repo: "https://github.com/rTalhaa/Edge-Detection-and-Image-Classification",
-    accent: "#ffb020",
+    accent: "#ffbb3d",
     icon: "CV"
   },
   {
     title: "PixelCNN on MNIST",
     category: ["ai"],
     lane: "Generative modeling",
-    summary: "Autoregressive image modeling experiments with PixelCNN, MNIST, and sampled output analysis.",
+    summary: "Autoregressive image modeling experiments with MNIST and sampled output analysis.",
     tags: ["PyTorch", "PixelCNN", "MNIST", "Generative"],
     repo: "https://github.com/rTalhaa/PixelCNN_on_MNIST",
-    accent: "#9a6cff",
+    accent: "#9e7bff",
     icon: "PX"
   },
   {
-    title: "DSA-ViT Research",
-    category: ["ai"],
-    lane: "Research notebook",
-    summary: "Dual-Scale Adaptive Vision Transformer research project for CIFAR-10 image classification.",
-    tags: ["ViT", "Attention", "PyTorch", "Research"],
-    repo: "https://github.com/rTalhaa/DSA-ViT-Dual-Scale-Adaptive-Vision-Transformer-Research",
-    accent: "#2f8cff",
-    icon: "ViT"
+    title: "Spotify Recommendation System",
+    category: ["ai", "web"],
+    lane: "Recommendation UI",
+    summary: "Spotify-style clone with music recommendation functionality and a more polished interface experience.",
+    tags: ["Python", "JavaScript", "Recommender", "Music"],
+    repo: "https://github.com/rTalhaa/Spotify-Clone-and-Music-Recommendation-System",
+    accent: "#45a0ff",
+    icon: "SP"
   }
 ];
 
@@ -177,15 +177,15 @@ function renderProjects(filter = "all") {
   projectGrid.innerHTML = visibleProjects.map(projectCard).join("");
   renderProjectShowcase();
   renderFeatured(filter);
-  document.querySelector("#project-count").textContent = projects.length;
+  const projectCount = document.querySelector("#project-count");
+  if (projectCount) {
+    projectCount.textContent = projects.length.toString();
+  }
   revealItems();
 }
 
 function renderFeatured(filter = "all") {
-  const featuredProjects = projects.filter((project) => {
-    return project.featured && (filter === "all" || project.category.includes(filter));
-  });
-
+  const featuredProjects = projects.filter((project) => project.featured && (filter === "all" || project.category.includes(filter)));
   featuredStrip.innerHTML = featuredProjects.map(featureCard).join("");
   featuredStrip.hidden = featuredProjects.length === 0;
 }
@@ -205,8 +205,9 @@ function renderProjectShowcase() {
     return;
   }
 
-  const activeProject = currentShowcaseProjects[activeShowcaseIndex % currentShowcaseProjects.length];
-  const orbitProjects = currentShowcaseProjects.slice(0, 8);
+  const visibleCount = Math.min(currentShowcaseProjects.length, 8);
+  const activeProject = currentShowcaseProjects[activeShowcaseIndex % visibleCount];
+  const orbitProjects = currentShowcaseProjects.slice(0, visibleCount);
   const angleStep = 360 / orbitProjects.length;
 
   projectShowcase.style.setProperty("--accent", activeProject.accent);
@@ -272,11 +273,9 @@ function advanceShowcase() {
 
 function restartShowcaseTimer() {
   window.clearInterval(showcaseTimer);
-
   if (prefersReducedMotion) {
     return;
   }
-
   showcaseTimer = window.setInterval(advanceShowcase, 4200);
 }
 
@@ -291,7 +290,6 @@ function setupShowcasePause() {
 
 function revealItems() {
   const revealNodes = document.querySelectorAll("[data-reveal]:not(.is-visible)");
-
   if (!revealNodes.length) {
     return;
   }
@@ -326,7 +324,7 @@ function setupCanvas() {
   const canvas = document.querySelector("#system-canvas");
   const context = canvas.getContext("2d");
   const points = [];
-  const colors = ["#ff665c", "#22d3ee", "#9beb3f", "#ffb020", "#9a6cff", "#2f8cff"];
+  const colors = ["#ff6b5c", "#24d7f0", "#a7ef4b", "#ffbb3d", "#9e7bff", "#45a0ff"];
 
   function resize() {
     canvas.width = window.innerWidth;
@@ -354,7 +352,7 @@ function setupCanvas() {
       if (point.y < 0 || point.y > canvas.height) point.vy *= -1;
 
       context.fillStyle = point.color;
-      context.globalAlpha = 0.65;
+      context.globalAlpha = 0.68;
       context.fillRect(point.x, point.y, 2, 2);
 
       for (let otherIndex = index + 1; otherIndex < points.length; otherIndex += 1) {

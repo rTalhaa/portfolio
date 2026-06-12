@@ -1,6 +1,6 @@
-# Futuristic Portfolio
+# Talha Rashid Portfolio
 
-A static one-page portfolio for Talha Rashid with a futuristic animated landing page, an interactive D3 project constellation, project showcase cards, GitHub links, and LinkedIn integration.
+A bold one-page portfolio for Talha Rashid that highlights recent AI, data, web, and MLOps projects with a stronger visual presentation.
 
 ## Live site
 
@@ -11,7 +11,6 @@ A static one-page portfolio for Talha Rashid with a futuristic animated landing 
 - HTML
 - CSS
 - Vanilla JavaScript
-- D3.js
 - GitHub Pages via GitHub Actions
 
 ## Local preview
@@ -23,22 +22,3 @@ python -m http.server 4173
 ```
 
 Then open [http://localhost:4173](http://localhost:4173).
-
-## Deploy to GitHub Pages
-
-1. Push this folder to a GitHub repository.
-2. Keep the default branch as `main`.
-3. Open the repository on GitHub and ensure Pages is enabled for GitHub Actions.
-4. Push any update to `main` and the included workflow will deploy the site.
-
-The current published URL is:
-
-```text
-https://rtalhaa.github.io/portfolio/
-```
-
-For forks or renamed repositories, the published URL will usually be:
-
-```text
-https://<github-username>.github.io/<repository-name>/
-```
