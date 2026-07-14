@@ -45,6 +45,7 @@ body::after {
     z-index: 200;
     pointer-events: none;
     opacity: 0.05;
+    contain: strict;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -177,11 +178,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     flex-direction: column;
     gap: 0.3rem;
     padding: 0.85rem 1rem;
-    background: rgba(11, 5, 16, 0.55);
+    background: rgba(11, 5, 16, 0.9);
     border: 1px solid var(--line);
     border-radius: 10px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
 }
 .hud-row { display: flex; gap: 1.25rem; justify-content: space-between; }
 .hud-key { color: var(--muted); }
@@ -231,9 +230,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     align-items: center;
     justify-content: space-between;
     padding: 0 clamp(1.25rem, 4vw, 3rem);
-    background: linear-gradient(rgba(11, 5, 16, 0.72), rgba(11, 5, 16, 0));
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: linear-gradient(rgba(11, 5, 16, 0.94), rgba(11, 5, 16, 0));
     transition: transform 0.5s var(--ease-out);
 }
 .nav.is-hidden { transform: translateY(-100%); }
@@ -315,9 +312,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     padding: 0.55rem 1.1rem;
     border: 1px solid var(--line);
     border-radius: 999px;
-    background: rgba(11, 5, 16, 0.45);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(11, 5, 16, 0.88);
     margin-bottom: clamp(1.5rem, 4vh, 3rem);
 }
 .pulse-dot {

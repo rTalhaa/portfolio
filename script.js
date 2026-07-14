@@ -21,18 +21,13 @@
 
     gsap.registerPlugin(ScrollTrigger);
 
-    /* ============ LENIS SMOOTH SCROLL ============ */
+    /* ============ NATIVE SCROLL ============ */
+    // Native scrolling is substantially more responsive and already integrates
+    // directly with ScrollTrigger. Avoid a second perpetual animation ticker.
     let lenis = null;
-    if (typeof Lenis !== 'undefined' && !reduceMotion) {
-        lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1 });
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0);
-    }
 
     const scrollTo = (target) => {
-        if (lenis) lenis.scrollTo(target, { offset: 0, duration: 1.4 });
-        else target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
     };
 
     document.querySelectorAll('a[href^="#"]').forEach((a) => {
@@ -131,7 +126,7 @@
             float fbm(vec2 p){
                 float v=0.,a=.5;
                 mat2 r=mat2(1.6,1.2,-1.2,1.6);
-                for(int i=0;i<5;i++){v+=a*noise(p);p=r*p;a*=.5;}
+                for(int i=0;i<4;i++){v+=a*noise(p);p=r*p;a*=.5;}
                 return v;
             }
             void main(){
@@ -175,43 +170,51 @@
         const uMouse = gl.getUniformLocation(prog, 'u_mouse');
         const uHeat = gl.getUniformLocation(prog, 'u_heat');
 
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        // The shader is intentionally decorative. Rendering it at native CSS
+        // resolution is dramatically cheaper on high-DPI screens.
+        const dpr = Math.min(window.devicePixelRatio || 1, 1);
+        let canvasRect = null;
         function resize() {
             const w = heroEl.clientWidth, h = heroEl.clientHeight;
             canvas.width = w * dpr;
             canvas.height = h * dpr;
             gl.viewport(0, 0, canvas.width, canvas.height);
+            canvasRect = canvas.getBoundingClientRect();
         }
         resize();
         window.addEventListener('resize', resize);
 
         let mx = 0.5, my = 0.42, tx = 0.5, ty = 0.42, heat = 0, heatTarget = 0;
         window.addEventListener('pointermove', (e) => {
-            const r = canvas.getBoundingClientRect();
+            const r = canvasRect;
+            if (!r) return;
             tx = (e.clientX - r.left) / r.width;
             ty = 1 - (e.clientY - r.top) / r.height;
             heatTarget = 1;
-        });
+        }, { passive: true });
 
         let heroVisible = true;
         new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; }).observe(heroEl);
 
         const t0 = performance.now();
-        renderShader = function render() {
-            if (heroVisible && !document.hidden) {
+        let lastFrame = 0;
+        const frameInterval = 1000 / 30;
+        renderShader = function render(now) {
+            if (heroVisible && !document.hidden && now - lastFrame >= frameInterval) {
+                lastFrame = now;
                 mx += (tx - mx) * 0.06;
                 my += (ty - my) * 0.06;
                 heat += (heatTarget - heat) * 0.04;
                 heatTarget *= 0.97;
                 gl.uniform2f(uRes, canvas.width, canvas.height);
-                gl.uniform1f(uTime, (performance.now() - t0) / 1000);
+                gl.uniform1f(uTime, (now - t0) / 1000);
                 gl.uniform2f(uMouse, mx, my);
                 gl.uniform1f(uHeat, heat);
                 gl.drawArrays(gl.TRIANGLES, 0, 3);
             }
             if (!reduceMotion) requestAnimationFrame(render);
         };
-        renderShader();
+        requestAnimationFrame(renderShader);
     })();
 
     /* ============ CUSTOM CURSOR ============ */
@@ -404,7 +407,7 @@
             if (!next) return;
             gsap.to(card.querySelector('.stack-card-inner'), {
                 scale: 0.93,
-                filter: 'brightness(0.55)',
+                opacity: 0.58,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: next,
@@ -467,15 +470,27 @@
     const progressBar = document.getElementById('thermalProgress');
     const lossEl = document.getElementById('metricLoss');
     const accEl = document.getElementById('metricAcc');
-    function updateMetrics() {
+    const nav = document.getElementById('nav');
+    let lastY = window.scrollY;
+    let scrollTicking = false;
+    function updateScrollUI() {
         const max = document.documentElement.scrollHeight - window.innerHeight;
         const p = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
         progressBar.style.transform = 'scaleX(' + p + ')';
         if (lossEl) lossEl.textContent = (2.4832 * Math.pow(1 - p, 2.2) + 0.0042).toFixed(4);
         if (accEl) accEl.textContent = (0.312 + 0.686 * Math.pow(p, 0.7)).toFixed(3);
+        const y = window.scrollY;
+        nav.classList.toggle('is-hidden', y > lastY && y > 300);
+        lastY = y;
+        scrollTicking = false;
     }
-    window.addEventListener('scroll', updateMetrics, { passive: true });
-    updateMetrics();
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            scrollTicking = true;
+            requestAnimationFrame(updateScrollUI);
+        }
+    }, { passive: true });
+    updateScrollUI();
 
     /* ============ EPOCH TRACKER (active section) ============ */
     const epochs = document.querySelectorAll('.epoch');
@@ -493,14 +508,6 @@
         });
 
     /* ============ NAV HIDE ON SCROLL DOWN ============ */
-    const nav = document.getElementById('nav');
-    let lastY = 0;
-    window.addEventListener('scroll', () => {
-        const y = window.scrollY;
-        nav.classList.toggle('is-hidden', y > lastY && y > 300);
-        lastY = y;
-    }, { passive: true });
-
     /* ============ EMAIL COPY ============ */
     const emailChip = document.getElementById('emailChip');
     const emailText = document.getElementById('emailChipText');
