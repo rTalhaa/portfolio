@@ -1,394 +1,535 @@
-const projects = [
-  {
-    title: "Islamabad Land Price HeatMap",
-    category: ["data", "web"],
-    lane: "Geospatial dashboard",
-    summary: "Automated Islamabad land price heatmap and spatial visualization project with a strong data-storytelling layer.",
-    tags: ["Python", "GeoPandas", "Maps", "Scraping"],
-    repo: "https://github.com/rTalhaa/Islamabad-Land-Price-HeatMap",
-    accent: "#ff6b5c",
-    icon: "MAP",
-    featured: true
-  },
-  {
-    title: "Tox21 Molecular Toxicity MLOps",
-    category: ["ai", "ops"],
-    lane: "MLOps platform",
-    summary: "Model deployment project with a clear MLOps workflow for training, tracking, and production-minded delivery.",
-    tags: ["PyTorch", "MLflow", "Docker", "Automation"],
-    repo: "https://github.com/rTalhaa/Tox21-Molecular-Toxicity-MLOps-Platform",
-    accent: "#24d7f0",
-    icon: "TX",
-    featured: true
-  },
-  {
-    title: "Smart Right Click Extension v2",
-    category: ["web", "ai"],
-    lane: "Browser tool",
-    summary: "Improved productivity browser extension with quicker actions, cleaner UX, and AI-assisted workflows.",
-    tags: ["JavaScript", "Chrome API", "UX", "AI"],
-    repo: "https://github.com/rTalhaa/smart-right-click-browser-extension-v2",
-    accent: "#a7ef4b",
-    icon: "EXT",
-    featured: true
-  },
-  {
-    title: "Auth App",
-    category: ["web", "ops"],
-    lane: "Authentication app",
-    summary: "A practical auth-focused application that demonstrates product structure, user flow, and backend integration.",
-    tags: ["Python", "Auth", "App", "Delivery"],
-    repo: "https://github.com/rTalhaa/auth-app",
-    accent: "#ffbb3d",
-    icon: "AUTH",
-    featured: true
-  },
-  {
-    title: "Automated MLOps Pipeline",
-    category: ["ai", "ops"],
-    lane: "Pipeline automation",
-    summary: "Airflow plus MLflow pipeline for orchestration, experiment tracking, and repeatable machine learning delivery.",
-    tags: ["Airflow", "MLflow", "Automation", "MLops"],
-    repo: "https://github.com/rTalhaa/Automated-MLOps-Pipeline-using-Apache-Airflow-and-MLflow-for-Experiment-Tracking",
-    accent: "#9e7bff",
-    icon: "OPS"
-  },
-  {
-    title: "FineTuning DeepSpeed vs LoRA",
-    category: ["ai"],
-    lane: "LLM research",
-    summary: "Comparison work between full training paths and adapter-based fine-tuning for efficient LLM experimentation.",
-    tags: ["LLM", "DeepSpeed", "LoRA", "Transformers"],
-    repo: "https://github.com/rTalhaa/FineTuning-DeepSpeed-vs-LoRA-Adapters",
-    accent: "#45a0ff",
-    icon: "LLM"
-  },
-  {
-    title: "CI/CD for ML using GitHub Actions",
-    category: ["ops", "ai"],
-    lane: "Delivery workflow",
-    summary: "A clean CI/CD pattern for machine learning projects that keeps training and shipping more disciplined.",
-    tags: ["GitHub Actions", "CI/CD", "ML", "Automation"],
-    repo: "https://github.com/rTalhaa/CI-CD-for-ML-using-GitHub-Actions",
-    accent: "#ff6b5c",
-    icon: "CI"
-  },
-  {
-    title: "Car Price Tracker PK",
-    category: ["data", "web"],
-    lane: "Market tracker",
-    summary: "Pakistan car price tracking project with scraping, normalization, and analysis-oriented presentation.",
-    tags: ["TypeScript", "Scraping", "Analytics", "Cars"],
-    repo: "https://github.com/rTalhaa/car-price-tracker-pk",
-    accent: "#24d7f0",
-    icon: "CAR"
-  },
-  {
-    title: "Climate and AQI Explorer",
-    category: ["data", "web"],
-    lane: "Public data app",
-    summary: "Interactive city climate and air quality explorer built for comparison, visual exploration, and public data clarity.",
-    tags: ["Python", "Streamlit", "Plotly", "API"],
-    repo: "https://github.com/rTalhaa/city-climate-air-quality-explorer",
-    accent: "#a7ef4b",
-    icon: "AQI"
-  },
-  {
-    title: "Computer Vision Suite",
-    category: ["ai"],
-    lane: "Vision experiments",
-    summary: "Image classification, edge detection, and classical computer vision experiments across multiple approaches.",
-    tags: ["OpenCV", "CNN", "HOG", "SVM"],
-    repo: "https://github.com/rTalhaa/Edge-Detection-and-Image-Classification",
-    accent: "#ffbb3d",
-    icon: "CV"
-  },
-  {
-    title: "PixelCNN on MNIST",
-    category: ["ai"],
-    lane: "Generative modeling",
-    summary: "Autoregressive image modeling experiments with MNIST and sampled output analysis.",
-    tags: ["PyTorch", "PixelCNN", "MNIST", "Generative"],
-    repo: "https://github.com/rTalhaa/PixelCNN_on_MNIST",
-    accent: "#9e7bff",
-    icon: "PX"
-  },
-  {
-    title: "Spotify Recommendation System",
-    category: ["ai", "web"],
-    lane: "Recommendation UI",
-    summary: "Spotify-style clone with music recommendation functionality and a more polished interface experience.",
-    tags: ["Python", "JavaScript", "Recommender", "Music"],
-    repo: "https://github.com/rTalhaa/Spotify-Clone-and-Music-Recommendation-System",
-    accent: "#45a0ff",
-    icon: "SP"
-  }
-];
+/* ============================================================
+   TALHA RASHID — "THE TRAINING RUN"
+   Scroll = training. Loss goes down, heat goes up.
+   Stack: GSAP + ScrollTrigger + Lenis + hand-rolled WebGL.
+   ============================================================ */
 
-const projectGrid = document.querySelector("#project-grid");
-const featuredStrip = document.querySelector("#featured-strip");
-const projectShowcase = document.querySelector("#project-showcase");
-const filters = document.querySelectorAll(".filter");
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-let activeShowcaseIndex = 0;
-let currentShowcaseProjects = projects;
-let showcaseTimer = null;
+(() => {
+    'use strict';
 
-function projectCard(project) {
-  return `
-    <article class="project-card" data-reveal style="--accent: ${project.accent};">
-      <div class="project-card-header">
-        <div>
-          <div class="project-icon">${project.icon}</div>
-          <span class="project-kicker">${project.lane}</span>
-        </div>
-        <span class="project-kicker">${project.category.join(" / ")}</span>
-      </div>
-      <h3>${project.title}</h3>
-      <p>${project.summary}</p>
-      <div class="project-tags">
-        ${project.tags.map((tag) => `<span>${tag}</span>`).join("")}
-      </div>
-      <div class="project-card-footer">
-        <a href="${project.repo}" target="_blank" rel="noreferrer">Open repo</a>
-        <small>GitHub</small>
-      </div>
-    </article>
-  `;
-}
+    const docEl = document.documentElement;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
 
-function featureCard(project) {
-  return `
-    <article class="feature-card" data-reveal style="--accent: ${project.accent};">
-      <span class="project-kicker">${project.lane}</span>
-      <h3>${project.title}</h3>
-      <p>${project.summary}</p>
-    </article>
-  `;
-}
-
-function renderProjects(filter = "all") {
-  const visibleProjects = filter === "all"
-    ? projects
-    : projects.filter((project) => project.category.includes(filter));
-
-  currentShowcaseProjects = visibleProjects;
-  activeShowcaseIndex = 0;
-  projectGrid.innerHTML = visibleProjects.map(projectCard).join("");
-  renderProjectShowcase();
-  renderFeatured(filter);
-  const projectCount = document.querySelector("#project-count");
-  if (projectCount) {
-    projectCount.textContent = projects.length.toString();
-  }
-  revealItems();
-}
-
-function renderFeatured(filter = "all") {
-  const featuredProjects = projects.filter((project) => project.featured && (filter === "all" || project.category.includes(filter)));
-  featuredStrip.innerHTML = featuredProjects.map(featureCard).join("");
-  featuredStrip.hidden = featuredProjects.length === 0;
-}
-
-function setupFilters() {
-  filters.forEach((filterButton) => {
-    filterButton.addEventListener("click", () => {
-      filters.forEach((button) => button.classList.remove("is-active"));
-      filterButton.classList.add("is-active");
-      renderProjects(filterButton.dataset.filter);
-    });
-  });
-}
-
-function renderProjectShowcase() {
-  if (!projectShowcase || !currentShowcaseProjects.length) {
-    return;
-  }
-
-  const visibleCount = Math.min(currentShowcaseProjects.length, 8);
-  const activeProject = currentShowcaseProjects[activeShowcaseIndex % visibleCount];
-  const orbitProjects = currentShowcaseProjects.slice(0, visibleCount);
-  const angleStep = 360 / orbitProjects.length;
-
-  projectShowcase.style.setProperty("--accent", activeProject.accent);
-  projectShowcase.innerHTML = `
-    <div class="showcase-copy">
-      <span class="project-kicker">Animated project showcase</span>
-      <h3>${activeProject.title}</h3>
-      <p>${activeProject.summary}</p>
-      <div class="project-tags">
-        ${activeProject.tags.map((tag) => `<span>${tag}</span>`).join("")}
-      </div>
-      <div class="showcase-actions">
-        <a class="button primary" href="${activeProject.repo}" target="_blank" rel="noreferrer">Open selected repo</a>
-        <button class="button secondary" type="button" data-next-project>Next project</button>
-      </div>
-    </div>
-    <div class="orbit-stage" aria-label="Animated project selector">
-      <div class="orbit-core">
-        <span>${activeProject.icon}</span>
-        <strong>${activeProject.lane}</strong>
-      </div>
-      <div class="orbit-ring">
-        ${orbitProjects.map((project, index) => `
-          <button
-            class="orbit-project ${project.title === activeProject.title ? "is-active" : ""}"
-            type="button"
-            style="--angle: ${index * angleStep}deg; --node-accent: ${project.accent};"
-            data-showcase-index="${index}"
-            aria-label="Show ${project.title}"
-          >
-            <span>${project.icon}</span>
-          </button>
-        `).join("")}
-      </div>
-      <div class="orbit-trail" aria-hidden="true">
-        ${activeProject.tags.slice(0, 4).map((tag, index) => `<span style="--delay: ${index * 0.2}s">${tag}</span>`).join("")}
-      </div>
-    </div>
-  `;
-
-  projectShowcase.querySelectorAll("[data-showcase-index]").forEach((button) => {
-    button.addEventListener("click", () => {
-      activeShowcaseIndex = Number(button.dataset.showcaseIndex);
-      renderProjectShowcase();
-      restartShowcaseTimer();
-    });
-  });
-
-  projectShowcase.querySelector("[data-next-project]")?.addEventListener("click", () => {
-    advanceShowcase();
-    restartShowcaseTimer();
-  });
-}
-
-function advanceShowcase() {
-  if (!currentShowcaseProjects.length) {
-    return;
-  }
-
-  activeShowcaseIndex = (activeShowcaseIndex + 1) % Math.min(currentShowcaseProjects.length, 8);
-  renderProjectShowcase();
-}
-
-function restartShowcaseTimer() {
-  window.clearInterval(showcaseTimer);
-  if (prefersReducedMotion) {
-    return;
-  }
-  showcaseTimer = window.setInterval(advanceShowcase, 4200);
-}
-
-function setupShowcasePause() {
-  if (!projectShowcase || prefersReducedMotion) {
-    return;
-  }
-
-  projectShowcase.addEventListener("mouseenter", () => window.clearInterval(showcaseTimer));
-  projectShowcase.addEventListener("mouseleave", restartShowcaseTimer);
-}
-
-function revealItems() {
-  const revealNodes = document.querySelectorAll("[data-reveal]:not(.is-visible)");
-  if (!revealNodes.length) {
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
-
-  revealNodes.forEach((node) => {
-    const rect = node.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
-      node.classList.add("is-visible");
-      return;
+    /* If the CDN failed, unhide everything and bail gracefully. */
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        docEl.classList.add('no-anim');
+        const pre = document.getElementById('preloader');
+        if (pre) pre.remove();
+        return;
     }
-    observer.observe(node);
-  });
-}
 
-function setupCanvas() {
-  if (prefersReducedMotion) {
-    return;
-  }
+    gsap.registerPlugin(ScrollTrigger);
 
-  const canvas = document.querySelector("#system-canvas");
-  const context = canvas.getContext("2d");
-  const points = [];
-  const colors = ["#ff6b5c", "#24d7f0", "#a7ef4b", "#ffbb3d", "#9e7bff", "#45a0ff"];
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    points.length = 0;
-    for (let index = 0; index < 48; index += 1) {
-      points.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        color: colors[index % colors.length]
-      });
+    /* ============ LENIS SMOOTH SCROLL ============ */
+    let lenis = null;
+    if (typeof Lenis !== 'undefined' && !reduceMotion) {
+        lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1 });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
     }
-  }
 
-  function draw() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    const scrollTo = (target) => {
+        if (lenis) lenis.scrollTo(target, { offset: 0, duration: 1.4 });
+        else target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+    };
 
-    points.forEach((point, index) => {
-      point.x += point.vx;
-      point.y += point.vy;
-
-      if (point.x < 0 || point.x > canvas.width) point.vx *= -1;
-      if (point.y < 0 || point.y > canvas.height) point.vy *= -1;
-
-      context.fillStyle = point.color;
-      context.globalAlpha = 0.68;
-      context.fillRect(point.x, point.y, 2, 2);
-
-      for (let otherIndex = index + 1; otherIndex < points.length; otherIndex += 1) {
-        const other = points[otherIndex];
-        const distance = Math.hypot(point.x - other.x, point.y - other.y);
-        if (distance < 118) {
-          context.strokeStyle = point.color;
-          context.globalAlpha = 0.06;
-          context.beginPath();
-          context.moveTo(point.x, point.y);
-          context.lineTo(other.x, other.y);
-          context.stroke();
-        }
-      }
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener('click', (e) => {
+            const id = a.getAttribute('href');
+            const target = id === '#top' ? document.body : document.querySelector(id);
+            if (!target) return;
+            e.preventDefault();
+            scrollTo(id === '#top' ? 0 : target);
+        });
     });
 
-    context.globalAlpha = 1;
-    window.requestAnimationFrame(draw);
-  }
+    /* ============ HELPERS ============ */
+    const CH_POOL = '!<>-_\\/[]{}—=+*^?#01';
 
-  resize();
-  draw();
-  window.addEventListener("resize", resize);
-}
+    function splitChars(el) {
+        const text = el.textContent;
+        el.textContent = '';
+        const frag = document.createDocumentFragment();
+        [...text].forEach((c) => {
+            const s = document.createElement('span');
+            s.className = 'ch';
+            s.textContent = c;
+            frag.appendChild(s);
+        });
+        el.appendChild(frag);
+        return el.querySelectorAll('.ch');
+    }
 
-function setYear() {
-  const year = document.querySelector("#year");
-  if (year) {
-    year.textContent = new Date().getFullYear();
-  }
-}
+    function splitWords(el) {
+        const words = el.textContent.trim().split(/\s+/);
+        el.textContent = '';
+        const frag = document.createDocumentFragment();
+        words.forEach((w, i) => {
+            const s = document.createElement('span');
+            s.className = 'w';
+            s.textContent = w;
+            frag.appendChild(s);
+            if (i < words.length - 1) frag.appendChild(document.createTextNode(' '));
+        });
+        el.appendChild(frag);
+        return el.querySelectorAll('.w');
+    }
 
-renderProjects();
-setupFilters();
-setupShowcasePause();
-restartShowcaseTimer();
-revealItems();
-setupCanvas();
-setYear();
+    /* Scramble-decode a string into an element over `dur` ms. */
+    function decode(el, target, dur = 1100) {
+        const start = performance.now();
+        function frame() {
+            /* clamp to [0,1] — the first rAF tick can land before `start` */
+            const p = gsap.utils.clamp(0, 1, (performance.now() - start) / dur);
+            const settled = Math.floor(target.length * p);
+            let out = target.slice(0, settled);
+            for (let i = settled; i < target.length; i++) {
+                out += target[i] === ' ' ? ' ' : CH_POOL[(Math.random() * CH_POOL.length) | 0];
+            }
+            el.textContent = out;
+            if (p < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+    }
+
+    /* ============ WEBGL THERMAL SHADER (hero) ============ */
+    const canvas = document.getElementById('heroCanvas');
+    const heroEl = document.getElementById('hero');
+    let renderShader = null;
+
+    (function initShader() {
+        const gl = canvas.getContext('webgl', { antialias: false, alpha: false });
+        if (!gl) { canvas.style.background = 'radial-gradient(ellipse at 50% 80%, #2a0f45, #0b0510 70%)'; return; }
+
+        const vsSrc = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+        const fsSrc = `
+            precision highp float;
+            uniform vec2 u_res;
+            uniform float u_time;
+            uniform vec2 u_mouse;
+            uniform float u_heat;
+
+            vec3 inferno(float t){
+                const vec3 c0=vec3(0.00021894036911922,0.0016510046310010,-0.019480898437091);
+                const vec3 c1=vec3(0.10651341948561,0.56395643678841,3.9327123888893);
+                const vec3 c2=vec3(11.602493082472,-3.9728539656657,-15.942394106291);
+                const vec3 c3=vec3(-41.703996131395,17.436398882053,44.354145198728);
+                const vec3 c4=vec3(77.162935699427,-33.402358942101,-81.807309257390);
+                const vec3 c5=vec3(-71.319428244992,32.626064263977,73.209519858032);
+                const vec3 c6=vec3(25.131126224773,-12.242668952386,-23.070325002872);
+                return c0+t*(c1+t*(c2+t*(c3+t*(c4+t*(c5+t*c6)))));
+            }
+            float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}
+            float noise(vec2 p){
+                vec2 i=floor(p),f=fract(p);
+                f=f*f*(3.-2.*f);
+                return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),
+                           mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);
+            }
+            float fbm(vec2 p){
+                float v=0.,a=.5;
+                mat2 r=mat2(1.6,1.2,-1.2,1.6);
+                for(int i=0;i<5;i++){v+=a*noise(p);p=r*p;a*=.5;}
+                return v;
+            }
+            void main(){
+                vec2 uv=gl_FragCoord.xy/u_res;
+                vec2 p=uv; p.x*=u_res.x/u_res.y;
+                float t=u_time*.055;
+                vec2 q=vec2(fbm(p*2.1+t),fbm(p*2.1-t*.7));
+                float f=fbm(p*2.3+q*1.7+vec2(t*.5,-t*.3));
+                vec2 mp=u_mouse; mp.x*=u_res.x/u_res.y;
+                float m=exp(-length(p-mp)*3.1)*u_heat;
+                float v=f*.6+m*.55;
+                float vig=smoothstep(1.2,.3,length(uv-vec2(.5,.42))*1.55);
+                v*=mix(.7,1.,vig);
+                vec3 col=inferno(clamp(v,0.,.96));
+                col=pow(col,vec3(1.3))*.92;
+                gl_FragColor=vec4(col,1.);
+            }`;
+
+        function compile(type, src) {
+            const sh = gl.createShader(type);
+            gl.shaderSource(sh, src);
+            gl.compileShader(sh);
+            return sh;
+        }
+        const prog = gl.createProgram();
+        gl.attachShader(prog, compile(gl.VERTEX_SHADER, vsSrc));
+        gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fsSrc));
+        gl.linkProgram(prog);
+        if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+        gl.useProgram(prog);
+
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+        const locA = gl.getAttribLocation(prog, 'a');
+        gl.enableVertexAttribArray(locA);
+        gl.vertexAttribPointer(locA, 2, gl.FLOAT, false, 0, 0);
+
+        const uRes = gl.getUniformLocation(prog, 'u_res');
+        const uTime = gl.getUniformLocation(prog, 'u_time');
+        const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+        const uHeat = gl.getUniformLocation(prog, 'u_heat');
+
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        function resize() {
+            const w = heroEl.clientWidth, h = heroEl.clientHeight;
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            gl.viewport(0, 0, canvas.width, canvas.height);
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        let mx = 0.5, my = 0.42, tx = 0.5, ty = 0.42, heat = 0, heatTarget = 0;
+        window.addEventListener('pointermove', (e) => {
+            const r = canvas.getBoundingClientRect();
+            tx = (e.clientX - r.left) / r.width;
+            ty = 1 - (e.clientY - r.top) / r.height;
+            heatTarget = 1;
+        });
+
+        let heroVisible = true;
+        new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; }).observe(heroEl);
+
+        const t0 = performance.now();
+        renderShader = function render() {
+            if (heroVisible && !document.hidden) {
+                mx += (tx - mx) * 0.06;
+                my += (ty - my) * 0.06;
+                heat += (heatTarget - heat) * 0.04;
+                heatTarget *= 0.97;
+                gl.uniform2f(uRes, canvas.width, canvas.height);
+                gl.uniform1f(uTime, (performance.now() - t0) / 1000);
+                gl.uniform2f(uMouse, mx, my);
+                gl.uniform1f(uHeat, heat);
+                gl.drawArrays(gl.TRIANGLES, 0, 3);
+            }
+            if (!reduceMotion) requestAnimationFrame(render);
+        };
+        renderShader();
+    })();
+
+    /* ============ CUSTOM CURSOR ============ */
+    if (finePointer && !reduceMotion) {
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        const label = document.getElementById('cursorLabel');
+        const dotX = gsap.quickTo(dot, 'x', { duration: 0.08, ease: 'power2.out' });
+        const dotY = gsap.quickTo(dot, 'y', { duration: 0.08, ease: 'power2.out' });
+        const ringX = gsap.quickTo(ring, 'x', { duration: 0.32, ease: 'power2.out' });
+        const ringY = gsap.quickTo(ring, 'y', { duration: 0.32, ease: 'power2.out' });
+        let shown = false;
+        window.addEventListener('pointermove', (e) => {
+            if (!shown) { gsap.to([dot, ring], { opacity: 1, duration: 0.3 }); shown = true; }
+            dotX(e.clientX); dotY(e.clientY);
+            ringX(e.clientX); ringY(e.clientY);
+        });
+        document.addEventListener('mouseleave', () => { gsap.to([dot, ring], { opacity: 0, duration: 0.3 }); shown = false; });
+
+        document.querySelectorAll('[data-cursor]').forEach((el) => {
+            el.addEventListener('mouseenter', () => {
+                const txt = el.getAttribute('data-cursor');
+                if (txt) { label.textContent = txt; ring.classList.add('is-label'); }
+                else ring.classList.add('is-hover');
+            });
+            el.addEventListener('mouseleave', () => ring.classList.remove('is-hover', 'is-label'));
+        });
+    }
+
+    /* ============ MAGNETIC ELEMENTS ============ */
+    if (finePointer && !reduceMotion) {
+        document.querySelectorAll('.magnetic').forEach((el) => {
+            const xTo = gsap.quickTo(el, 'x', { duration: 0.4, ease: 'power3.out' });
+            const yTo = gsap.quickTo(el, 'y', { duration: 0.4, ease: 'power3.out' });
+            el.addEventListener('mousemove', (e) => {
+                const r = el.getBoundingClientRect();
+                xTo((e.clientX - r.left - r.width / 2) * 0.35);
+                yTo((e.clientY - r.top - r.height / 2) * 0.35);
+            });
+            el.addEventListener('mouseleave', () => { xTo(0); yTo(0); });
+        });
+    }
+
+    /* ============ NAV SCRAMBLE HOVER ============ */
+    if (finePointer && !reduceMotion) {
+        document.querySelectorAll('[data-scramble]').forEach((el) => {
+            const original = el.textContent;
+            let busy = false;
+            el.addEventListener('mouseenter', () => {
+                if (busy) return;
+                busy = true;
+                decode(el, original, 420);
+                setTimeout(() => { busy = false; }, 460);
+            });
+        });
+    }
+
+    /* ============ PRELOADER → HERO INTRO ============ */
+    const heroChars1 = splitChars(document.getElementById('heroLine1'));
+    const heroChars2 = splitChars(document.getElementById('heroLine2'));
+    const heroSub = document.getElementById('heroSub');
+    const subText = heroSub.getAttribute('data-decode');
+
+    function heroIntro() {
+        heroSub.textContent = '';
+        const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+        tl.from([...heroChars1, ...heroChars2], {
+            yPercent: 150,
+            duration: 1.1,
+            stagger: 0.045
+        })
+        .to('#heroChip', { opacity: 1, duration: 0.6 }, '-=0.6')
+        .to('#heroSub', { opacity: 1, duration: 0.1, onComplete: () => decode(heroSub, subText, 1300) }, '-=0.4')
+        .to('#heroMeta', { opacity: 1, y: 0, duration: 0.7 }, '-=0.2')
+        .to('#scrollHint', { opacity: 1, duration: 0.7 }, '-=0.4')
+        .to(['#hudMetrics', '#hudEpochs'], { opacity: 1, duration: 0.7 }, '<');
+    }
+
+    const preloader = document.getElementById('preloader');
+    if (reduceMotion) {
+        if (preloader) preloader.remove();
+        heroSub.textContent = subText;
+        gsap.set([...heroChars1, ...heroChars2], { clearProps: 'all' });
+    } else {
+        const logLines = document.querySelectorAll('#bootLog p');
+        const pctEl = document.getElementById('bootPct');
+        const boot = gsap.timeline({
+            onComplete: () => {
+                gsap.to(preloader, {
+                    yPercent: -100,
+                    duration: 0.9,
+                    ease: 'power4.inOut',
+                    onComplete: () => { preloader.remove(); ScrollTrigger.refresh(); }
+                });
+                heroIntro();
+            }
+        });
+        boot.to(logLines, { opacity: 1, duration: 0.06, stagger: 0.16, ease: 'none' })
+            .to('#bootBarFill', {
+                scaleX: 1, duration: 1.05, ease: 'power2.inOut',
+                onUpdate: function () { pctEl.textContent = Math.round(this.progress() * 100) + '%'; }
+            }, 0.15);
+    }
+
+    /* ============ HERO SCROLL PARALLAX / KINETIC SPLIT ============ */
+    if (!reduceMotion) {
+        gsap.to('#heroLine1', {
+            xPercent: -14, ease: 'none',
+            scrollTrigger: { trigger: heroEl, start: 'top top', end: 'bottom top', scrub: true }
+        });
+        gsap.to('#heroLine2', {
+            xPercent: 14, ease: 'none',
+            scrollTrigger: { trigger: heroEl, start: 'top top', end: 'bottom top', scrub: true }
+        });
+        gsap.to('.hero-inner', {
+            yPercent: 22, opacity: 0.25, ease: 'none',
+            scrollTrigger: { trigger: heroEl, start: 'top top', end: 'bottom top', scrub: true }
+        });
+        gsap.to('#scrollHint', {
+            opacity: 0, ease: 'none',
+            scrollTrigger: { trigger: heroEl, start: 'top top', end: '20% top', scrub: true }
+        });
+    }
+
+    /* ============ MARQUEE (velocity-reactive) ============ */
+    if (!reduceMotion) {
+        const marqueeTween = gsap.to('#marqueeInner', {
+            xPercent: -50, repeat: -1, ease: 'none', duration: 24
+        });
+        if (lenis) {
+            const skewTo = gsap.quickTo('#marqueeInner', 'skewX', { duration: 0.4, ease: 'power2.out' });
+            lenis.on('scroll', ({ velocity }) => {
+                const v = Math.abs(velocity);
+                marqueeTween.timeScale(1 + Math.min(v / 6, 3.5));
+                skewTo(gsap.utils.clamp(-8, 8, velocity * 0.4));
+            });
+        }
+    }
+
+    /* ============ WORK : HORIZONTAL GALLERY (desktop) ============ */
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+        const track = document.getElementById('workTrack');
+        const getAmount = () => Math.max(track.scrollWidth - window.innerWidth, 0);
+        const horiz = gsap.to(track, {
+            x: () => -getAmount(),
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#work',
+                start: 'top top',
+                end: () => '+=' + getAmount(),
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true
+            }
+        });
+        /* Ghost numerals drift against the scroll for depth */
+        gsap.utils.toArray('.run-card .ghost-num').forEach((el) => {
+            gsap.fromTo(el, { xPercent: 26 }, {
+                xPercent: -12, ease: 'none',
+                scrollTrigger: {
+                    trigger: el.parentElement,
+                    containerAnimation: horiz,
+                    start: 'left right',
+                    end: 'right left',
+                    scrub: true
+                }
+            });
+        });
+        return () => horiz.scrollTrigger && horiz.scrollTrigger.kill();
+    });
+
+    /* Mobile: simple rise-in reveals for cards */
+    mm.add('(max-width: 899px)', () => {
+        if (reduceMotion) return;
+        gsap.utils.toArray('.run-card').forEach((card) => {
+            gsap.from(card, {
+                y: 60, opacity: 0, duration: 0.9, ease: 'power3.out',
+                scrollTrigger: { trigger: card, start: 'top 88%' }
+            });
+        });
+    });
+
+    /* ============ STACK : STICKY PILE ============ */
+    if (!reduceMotion) {
+        const cards = gsap.utils.toArray('.stack-card');
+        cards.forEach((card, i) => {
+            const next = cards[i + 1];
+            if (!next) return;
+            gsap.to(card.querySelector('.stack-card-inner'), {
+                scale: 0.93,
+                filter: 'brightness(0.55)',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: next,
+                    start: 'top bottom',
+                    end: 'top center',
+                    scrub: true
+                }
+            });
+        });
+    }
+
+    /* ============ LINE REVEALS (eyebrows + titles) ============ */
+    if (!reduceMotion) {
+        document.querySelectorAll('[data-reveal]').forEach((block) => {
+            gsap.to(block.querySelectorAll('.rl'), {
+                y: 0,
+                duration: 1.1,
+                ease: 'power4.out',
+                stagger: 0.09,
+                scrollTrigger: { trigger: block, start: 'top 85%' }
+            });
+        });
+    } else {
+        gsap.set('.rl', { clearProps: 'all' });
+    }
+
+    /* ============ ABOUT : WORD SCRUB + COUNTERS ============ */
+    const manifesto = document.getElementById('manifesto');
+    if (manifesto) {
+        const words = splitWords(manifesto);
+        if (!reduceMotion) {
+            gsap.fromTo(words, { opacity: 0.13 }, {
+                opacity: 1,
+                ease: 'none',
+                stagger: 0.06,
+                scrollTrigger: {
+                    trigger: manifesto,
+                    start: 'top 78%',
+                    end: 'bottom 45%',
+                    scrub: true
+                }
+            });
+        }
+    }
+    document.querySelectorAll('.stat-num').forEach((el) => {
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        if (reduceMotion) { el.textContent = target; return; }
+        const obj = { v: 0 };
+        gsap.to(obj, {
+            v: target,
+            duration: 1.6,
+            ease: 'power2.out',
+            snap: { v: 1 },
+            onUpdate: () => { el.textContent = String(obj.v).padStart(2, '0'); },
+            scrollTrigger: { trigger: el, start: 'top 88%' }
+        });
+    });
+
+    /* ============ SCROLL PROGRESS + LIVE METRICS ============ */
+    const progressBar = document.getElementById('thermalProgress');
+    const lossEl = document.getElementById('metricLoss');
+    const accEl = document.getElementById('metricAcc');
+    function updateMetrics() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+        progressBar.style.transform = 'scaleX(' + p + ')';
+        if (lossEl) lossEl.textContent = (2.4832 * Math.pow(1 - p, 2.2) + 0.0042).toFixed(4);
+        if (accEl) accEl.textContent = (0.312 + 0.686 * Math.pow(p, 0.7)).toFixed(3);
+    }
+    window.addEventListener('scroll', updateMetrics, { passive: true });
+    updateMetrics();
+
+    /* ============ EPOCH TRACKER (active section) ============ */
+    const epochs = document.querySelectorAll('.epoch');
+    function setEpoch(name) {
+        epochs.forEach((e) => e.classList.toggle('is-active', e.dataset.section === name));
+    }
+    [['#hero', 'top'], ['#work', 'work'], ['#stack', 'stack'], ['#about', 'about'], ['#contact', 'contact']]
+        .forEach(([sel, name]) => {
+            ScrollTrigger.create({
+                trigger: sel,
+                start: 'top center',
+                end: 'bottom center',
+                onToggle: (self) => { if (self.isActive) setEpoch(name); }
+            });
+        });
+
+    /* ============ NAV HIDE ON SCROLL DOWN ============ */
+    const nav = document.getElementById('nav');
+    let lastY = 0;
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        nav.classList.toggle('is-hidden', y > lastY && y > 300);
+        lastY = y;
+    }, { passive: true });
+
+    /* ============ EMAIL COPY ============ */
+    const emailChip = document.getElementById('emailChip');
+    const emailText = document.getElementById('emailChipText');
+    if (emailChip) {
+        emailChip.addEventListener('click', () => {
+            navigator.clipboard.writeText('talha.rashid344@gmail.com').then(() => {
+                emailChip.classList.add('is-copied');
+                emailText.textContent = 'copied to clipboard ✓';
+                setTimeout(() => {
+                    emailChip.classList.remove('is-copied');
+                    emailText.textContent = 'talha.rashid344@gmail.com';
+                }, 1400);
+            }).catch(() => { window.location.href = 'mailto:talha.rashid344@gmail.com'; });
+        });
+    }
+
+    /* ============ ISLAMABAD CLOCK ============ */
+    const clockEl = document.getElementById('clock');
+    function tickClock() {
+        clockEl.textContent = new Intl.DateTimeFormat('en-GB', {
+            hour: '2-digit', minute: '2-digit', second: '2-digit',
+            hour12: false, timeZone: 'Asia/Karachi'
+        }).format(new Date());
+    }
+    tickClock();
+    setInterval(tickClock, 1000);
+
+    /* Recalculate pinned distances once webfonts settle */
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => ScrollTrigger.refresh());
+    }
+})();
