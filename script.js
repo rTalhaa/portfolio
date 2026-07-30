@@ -11,6 +11,57 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const finePointer = window.matchMedia('(pointer: fine)').matches;
 
+    /* ============ CV VIEWER ============
+       Runs before the GSAP guard so the CV opens even if the CDN is down.
+       Animation is pure CSS; this only owns state, focus, and lazy loading. */
+    (function initCvViewer() {
+        const viewer = document.getElementById('cvViewer');
+        if (!viewer) return;
+        const panel = viewer.querySelector('.cv-panel');
+        const doc = document.getElementById('cvDoc');
+        const closeBtn = document.getElementById('cvClose');
+        const scrim = document.getElementById('cvScrim');
+        const src = 'Talha-Rashid-CV.pdf';
+        let lastFocused = null;
+
+        function open() {
+            /* Load the PDF on first open so it never costs a page-load request. */
+            if (!doc.getAttribute('data')) doc.setAttribute('data', src + '#view=FitH');
+            lastFocused = document.activeElement;
+            viewer.hidden = false;
+            document.body.classList.add('cv-open');
+            requestAnimationFrame(() => viewer.classList.add('is-open'));
+            closeBtn.focus();
+        }
+
+        function close() {
+            viewer.classList.remove('is-open');
+            document.body.classList.remove('cv-open');
+            const done = () => { viewer.hidden = true; };
+            if (reduceMotion) done();
+            else setTimeout(done, 420);
+            if (lastFocused && lastFocused.focus) lastFocused.focus();
+        }
+
+        document.querySelectorAll('[data-cv-open]').forEach((el) => {
+            el.addEventListener('click', (e) => { e.preventDefault(); open(); });
+        });
+        closeBtn.addEventListener('click', close);
+        scrim.addEventListener('click', close);
+        document.addEventListener('keydown', (e) => {
+            if (viewer.hidden) return;
+            if (e.key === 'Escape') { close(); return; }
+            /* Keep tabbing inside the dialog while it is open. */
+            if (e.key !== 'Tab') return;
+            const focusable = panel.querySelectorAll('a[href], button');
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
+    })();
+
     /* If the CDN failed, unhide everything and bail gracefully. */
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
         docEl.classList.add('no-anim');
@@ -289,6 +340,7 @@
         .to('#heroChip', { opacity: 1, duration: 0.6 }, '-=0.6')
         .to('#heroSub', { opacity: 1, duration: 0.1, onComplete: () => decode(heroSub, subText, 1300) }, '-=0.4')
         .to('#heroMeta', { opacity: 1, y: 0, duration: 0.7 }, '-=0.2')
+        .to('#heroCta', { opacity: 1, y: 0, duration: 0.7 }, '-=0.45')
         .to('#scrollHint', { opacity: 1, duration: 0.7 }, '-=0.4')
         .to(['#hudMetrics', '#hudEpochs'], { opacity: 1, duration: 0.7 }, '<');
     }
