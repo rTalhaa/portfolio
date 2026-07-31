@@ -369,7 +369,13 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .hero-meta-item b { color: var(--heat-4); font-family: var(--font-mono); font-weight: 600; }
 .hero-meta-sep { width: 1px; height: 14px; background: var(--line); }
-.hero-cta { margin-top: clamp(1.75rem, 4vh, 2.75rem); }
+.hero-cta {
+    margin-top: clamp(1.75rem, 4vh, 2.75rem);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem;
+}
 .cv-button {
     position: relative;
     display: inline-flex;
@@ -439,6 +445,32 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     transition: color 0.4s;
 }
 .cv-button:hover .cv-button-sub { color: var(--heat-4); }
+
+/* LinkedIn variant — same shell, mark instead of the paper sheet. */
+.li-button { text-decoration: none; color: inherit; }
+.li-button-mark {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--heat-3);
+    border-radius: 6px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    line-height: 1;
+    color: var(--heat-3);
+    transition: color 0.45s, border-color 0.45s, transform 0.45s var(--ease-out);
+}
+.li-button:hover .li-button-mark {
+    color: var(--heat-4);
+    border-color: var(--heat-4);
+    transform: translateY(-2px);
+}
 
 .hero-scroll-hint {
     position: absolute;
