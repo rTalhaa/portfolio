@@ -459,13 +459,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
     height: 34px;
     border: 1px solid var(--heat-3);
     border-radius: 6px;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 0.9rem;
-    line-height: 1;
     color: var(--heat-3);
     transition: color 0.45s, border-color 0.45s, transform 0.45s var(--ease-out);
 }
+.li-button-mark svg { display: block; width: 17px; height: 17px; }
 .li-button:hover .li-button-mark {
     color: var(--heat-4);
     border-color: var(--heat-4);
